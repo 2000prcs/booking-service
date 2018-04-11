@@ -1,7 +1,13 @@
 // create a connection
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://<dbuser>:<dbpassword>@ds141889.mlab.com:41889/booking');
+// import db credentials
+const config = require('../config.js');
+
+mongoose.connect(`mongodb://${config.DB_ID}:${config.DB_PASSWORD}@ds141889.mlab.com:41889/booking`);
+
+// To connect the db in the shell
+// mongo ds141889.mlab.com:41889/booking -u <dbuser> -p <dbpassword>
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -42,7 +48,7 @@ let data = {
 };
 
 
-// insert testing
+// inserting test
 const save = (request) => {
 
   let newRoom = new Room({
@@ -62,7 +68,15 @@ const save = (request) => {
   });
 };
 
-// getting data test
+// fetching data test
+const find = () => {
+  Room.find((err, Room)=>{
+    
+  });
+};
 
 
-module.exports.save = save;
+module.exports = {
+  save,
+  find,
+};
