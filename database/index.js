@@ -4,6 +4,11 @@ const mongoose = require('mongoose');
 // import db credentials
 const config = require('../config.js');
 
+// import csv data
+const fs = require('fs');
+
+const path = require('path');
+
 mongoose.connect(`mongodb://${config.DB_ID}:${config.DB_PASSWORD}@ds141889.mlab.com:41889/booking`);
 
 // To connect the db in the shell
@@ -21,13 +26,14 @@ const bookingSchema = mongoose.Schema({
   room_id: Number,
   room_rate: Number,
   booked_dates: [Date], // store booked dates in an array
-  guest_number: Number,
+  // in the future, booked_dates can be [checkin, checkout, guestnumber]
+  // guest_number: Number,
   guest_name: String,
   host_name: String,
   discount: Boolean,
   cleaning_fee: Boolean,
   review_count: Number,
-  review_grade: Number, 
+  review_grade: Number,
   created_date: { type: Date, default: Date.now },
 
 });
@@ -35,54 +41,44 @@ const bookingSchema = mongoose.Schema({
 // create a model for the schema
 const Room = mongoose.model('room', bookingSchema);
 
-// Test with a fake data
-let testData = {
 
-  id: 1,
-  rate: 45,
-  booked: new Date, // add each booked dates to the booked dates array
-  guest_number: 2, // sum number of adult + children
-  guest_name: 'Mo',
-  host: 'Eric',
-  discount: true,
-  cleaning: true,
-  reviews: 125,
-  review_grade: 5,
-
+// saving generated data
+const save = (callback) => {
+  fs.readFile(path.join(__dirname, '../rooms.csv'), (err, rooms)=>{
+    let listings = rooms.toString().split('\n');
+    callback(listings);
+  });
 };
 
 
-// inserting test
-const save = (data) => {
+// adding booking dates to DB (only booked_dates)
+const update = (data) => {
 
-  let newRoom = new Room({
-    room_Id: data.id,
-    room_rate: data.rate,
+  let newRoom = {
+    room_id: data.id,
     booked_dates: data.booked,
-    guest_number: data.guest_number,
+    // guest_number: data.guest_number,
     guest_name: data.guest_name,
-    host_name: data.host,
-    discount: data.discount,
-    cleaning: data.cleaning,
-  });
+  };
 
-  Room.findOneAndUpdate({ room_id: data.id }, newRoom, { upsert: true }, (err, docs) => {
+  Room.findOneAndUpdate({ room_id: data.id }, { $push: { booked_dates: data.booked } }, (err, docs) => {
     if (err) return console.error(err);
     console.log('Data updated :', docs);
   });
 };
 
+
 // fetching data test
-const find = () => {
+const find = (callback) => {
   Room.find((err, rooms) => {
     if (err) return console.error(err);
     console.log(rooms);
+    callback(rooms);
   });
 };
 
-save(testData);
-
 module.exports = {
   save,
+  update,
   find,
 };
