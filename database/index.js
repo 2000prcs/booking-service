@@ -50,9 +50,9 @@ const update = (data) => {
     guest_name: data.guest_name,
   };
 
-  Room.findOneAndUpdate({ room_id: data.id }, { $push: { booked_dates: data.booked } }, (err, docs) => {
+  Room.findOneAndUpdate({ room_id: data.id }, { $push: { booked_dates: data.booked } }, (err, room) => {
     if (err) return console.error(err);
-    console.log('Data updated :', docs);
+    console.log('Data updated :', room);
   });
 };
 
@@ -61,13 +61,21 @@ const update = (data) => {
 const find = (callback) => {
   Room.find((err, rooms) => {
     if (err) return console.error(err);
-    console.log(rooms);
     callback(rooms);
   });
 };
 
 
+// For DB testing
+const findOne = (id, callback) => {
+  Room.findOne({ room_id: id }).exec((err, room) => {
+    if (err) return console.error(err);
+    callback(room);
+  });
+};
+
 module.exports = {
   update,
   find,
+  findOne,
 };
