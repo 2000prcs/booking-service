@@ -20,7 +20,7 @@ const db = require('../database');
 app.get('/booking', (req, res) => {
   db.find((data) => {
     console.log('Found data from db:', data);
-    res.send('Respond to GET request: ', data);
+    res.send(data);
   });
 
 });
@@ -39,7 +39,7 @@ app.post('/booking', (req, res) => {
   };
 
   db.update(testData);
-  res.send('Respond to POST reuqest: ');
+  res.send(req.body);
 });
 
 // listen to the port
