@@ -26,6 +26,8 @@ const bookingSchema = mongoose.Schema({
   host_name: String,
   discount: Boolean,
   cleaning_fee: Boolean,
+  review_count: Number,
+  review_grade: Number, 
   created_date: { type: Date, default: Date.now },
 
 });
@@ -34,25 +36,27 @@ const bookingSchema = mongoose.Schema({
 const Room = mongoose.model('room', bookingSchema);
 
 // Test with a fake data
-let data = {
+let testData = {
 
   id: 1,
   rate: 45,
-  booked: new Date(), // add each booked dates to the booked dates array
+  booked: new Date, // add each booked dates to the booked dates array
   guest_number: 2, // sum number of adult + children
   guest_name: 'Mo',
   host: 'Eric',
   discount: true,
   cleaning: true,
+  reviews: 125,
+  review_grade: 5,
 
 };
 
 
 // inserting test
-const save = (request) => {
+const save = (data) => {
 
   let newRoom = new Room({
-    room_id: data.id,
+    room_Id: data.id,
     room_rate: data.rate,
     booked_dates: data.booked,
     guest_number: data.guest_number,
@@ -62,19 +66,21 @@ const save = (request) => {
     cleaning: data.cleaning,
   });
 
-  Room.findOneAndUpdate({ room_id: data.id }, newRoom, { upsert: true }, (err, doc) => {
+  Room.findOneAndUpdate({ room_id: data.id }, newRoom, { upsert: true }, (err, docs) => {
     if (err) return console.error(err);
-    console.log('Data updated :', doc);
+    console.log('Data updated :', docs);
   });
 };
 
 // fetching data test
 const find = () => {
-  Room.find((err, Room)=>{
-    
+  Room.find((err, rooms) => {
+    if (err) return console.error(err);
+    console.log(rooms);
   });
 };
 
+save(testData);
 
 module.exports = {
   save,
