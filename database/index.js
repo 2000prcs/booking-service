@@ -4,11 +4,6 @@ const mongoose = require('mongoose');
 // import db credentials
 const config = require('../config.js');
 
-// import csv data
-const fs = require('fs');
-
-const path = require('path');
-
 mongoose.connect(`mongodb://${config.DB_ID}:${config.DB_PASSWORD}@ds141889.mlab.com:41889/booking`);
 
 // To connect the db in the shell
@@ -24,10 +19,13 @@ db.once('open', () => {
 const bookingSchema = mongoose.Schema({
 
   room_id: Number,
+  room_name: String,
+  world_name: String,
+  keywords: String,
   room_rate: Number,
-  booked_dates: [Date], // store booked dates in an array
+  booked_dates: [String], // store booked dates in an array
   // in the future, booked_dates can be [checkin, checkout, guestnumber]
-  // guest_number: Number,
+  guest_number: Number,
   guest_name: String,
   host_name: String,
   discount: Boolean,
@@ -42,19 +40,10 @@ const bookingSchema = mongoose.Schema({
 const Room = mongoose.model('room', bookingSchema);
 
 
-// saving generated data
-const save = (callback) => {
-  fs.readFile(path.join(__dirname, '../rooms.csv'), (err, rooms)=>{
-    let listings = rooms.toString().split('\n');
-    callback(listings);
-  });
-};
-
-
 // adding booking dates to DB (only booked_dates)
 const update = (data) => {
 
-  let newRoom = {
+  let newBooking = {
     room_id: data.id,
     booked_dates: data.booked,
     // guest_number: data.guest_number,
@@ -68,7 +57,7 @@ const update = (data) => {
 };
 
 
-// fetching data test
+// fetching all room data from DB
 const find = (callback) => {
   Room.find((err, rooms) => {
     if (err) return console.error(err);
@@ -77,8 +66,8 @@ const find = (callback) => {
   });
 };
 
+
 module.exports = {
-  save,
   update,
   find,
 };
