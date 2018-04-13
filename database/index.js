@@ -50,7 +50,8 @@ const update = (data) => {
     guest_name: data.guest_name,
   };
 
-  Room.findOneAndUpdate({ room_id: data.id }, { $push: { booked_dates: data.booked } }, (err, room) => {
+  Room.findOneAndUpdate({ room_id: data.id }, { $push: { booked_dates: data.booked } }, (err, room) 
+  => {
     if (err) return console.error(err);
     console.log('Data updated :', room);
   });
