@@ -1,3 +1,6 @@
+// this file is only for generating starter data - it doesn't have a connection with DB
+
+
 // import csv data
 const fs = require('fs');
 

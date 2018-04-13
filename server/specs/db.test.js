@@ -1,7 +1,7 @@
 const db = require('../../database/index.js');
 
 describe('DB', () => {
-  test('Should store a new booking date to the room user has selected', () => {
+  test('Should store a new booking date to the room user has selected', (done) => {
     let testData = {
       id: 21,
       booked: '2018-02-20',
@@ -14,12 +14,15 @@ describe('DB', () => {
       let room = data;
       expect(room.booked_dates[room.booked_dates.length - 1]).toBe('2018-02-20');
     });
+    done();
   });
 
-  test('Should find all rooms data', () => {
+  test('Should find all rooms data', (done) => {
     db.find((data) => {
       let rooms = data;
       expect(rooms.length).toBe(100);
     });
+    done();
   });
+  
 });
