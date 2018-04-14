@@ -41,7 +41,7 @@ const Room = mongoose.model('room', bookingSchema);
 
 
 // adding booking dates to DB (only booked_dates)
-const update = (data) => {
+const update = (data, callback) => {
 
   let newBooking = {
     room_id: data.id,
@@ -51,7 +51,10 @@ const update = (data) => {
   };
 
   Room.findOneAndUpdate({ room_id: data.id }, { $push: { booked_dates: data.booked } }, (err, room) => {
-    if (err) return console.error(err);
+    if (err) {
+      callback(err);
+      return console.error(err);
+    }
     console.log('Data updated :', room);
   });
 };

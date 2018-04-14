@@ -10,13 +10,29 @@ module.exports = {
     path: DIST_DIR,
   },
   module: {
-    loaders: [{
+    rules: [{
       test: /\.jsx?/,
       include: SRC_DIR,
       loader: 'babel-loader',
       query: {
         presets: ['react', 'es2015'],
       },
-    }],
+    },
+    {
+      test: /\.css$/,
+      use: [{
+        loader: 'style-loader',
+      },
+      {
+        loader: 'css-loader',
+        options: {
+          sourceMap: true,
+          modules: true,
+          localIdentName: '[local]___[hash:base64:5]',
+        },
+      },
+      ],
+    },
+    ],
   },
 };

@@ -30,7 +30,7 @@ describe('Server', () => {
     done();
   });
 
-  test('Should 404 when asked for a nonexistent file', (done) => {
+  test('Should 404 when asked for a nonexistent room', (done) => {
 
     request({
       url: `${serverUrl}/fantasyhub`,
