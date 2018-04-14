@@ -17,8 +17,13 @@ app.use(express.static(path.join(__dirname, '/../client/dist')));
 const db = require('../database');
 
 // GET request
-app.get('/booking', (req, res) => {
-  db.find((data) => {
+app.get('/booking/:room_id', (req, res) => {
+  console.log('Confirm params:', req.params);
+  db.findOne(req.params.room_id, (error, data) => {
+    if (error) {
+      res.sendStatus(404);
+      res.end(error);
+    }
     res.send(data);
   });
 });

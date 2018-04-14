@@ -69,11 +69,14 @@ const find = (callback) => {
 };
 
 
-// For DB testing
+// fetching one specific room data from DB
 const findOne = (id, callback) => {
   Room.findOne({ room_id: id }).exec((err, room) => {
-    if (err) return console.error(err);
-    callback(room);
+    if (err) {
+      callback(err, null);
+      return console.error(err);
+    }
+    callback(null, room);
   });
 };
 
