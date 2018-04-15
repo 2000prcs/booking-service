@@ -28,11 +28,11 @@ class Calendar extends React.Component {
       <div>
         <div>
           <span>Check-In</span>
-          <input onChange={(event, type) => this.handleChange(event, 'checkin')} type="date" />
+          <input onChange={(event, type) => this.handleChange(event, 'checkin')} type="date" className={styles.dates} />
         </div>
         <div>
           <span>Check-Out</span>
-          <input onChange={(event, type) => this.handleChange(event, 'checkout')} type="date" />
+          <input onChange={(event, type) => this.handleChange(event, 'checkout')} type="date" className={styles.dates} />
         </div>
       </div>
 

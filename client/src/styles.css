@@ -8,6 +8,11 @@
   margin: 10px 10px;
 }
 
+.dates {
+  margin-left: 10px;
+}
+
+
 .button {
   cursor: pointer;
   transition:  background 0.2s, border-color 0.2s;

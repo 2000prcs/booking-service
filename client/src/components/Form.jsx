@@ -9,8 +9,8 @@ export default class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      value: 0,
       option: {
-        guestNumber: 0,
         totalGuests: 0,
         totalPrice: 0,
         totalDays: 7,
@@ -34,7 +34,7 @@ export default class Form extends React.Component {
           <span>Guests</span>
         </div>
         <div>
-          <DropDownMenu value={this.state.guestNumber} onChange={this.handleChange}>
+          <DropDownMenu value={this.state.value} onChange={this.handleChange}>
             <MenuItem value={0} label={this.state.totalGuest} primaryText="Adults" />
             <MenuItem value={1} label={this.state.totalGuest} primaryText="Children" />
             <MenuItem value={2} label={this.state.totalGuest} primaryText="Infants" />
