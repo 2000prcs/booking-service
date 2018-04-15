@@ -59,16 +59,6 @@ class App extends React.Component {
         </div>
         <div className={styles.component}>
           <Stars room={this.state.room} />
-          
-          {/* <span> <StarRatings
-            rating={this.state.room.review_grade}
-            starRatedColor="#008489"
-            starDimension="10px"
-            starSpacing="0px"
-            numberOfStars={5}/>
-          </span>
-          <span>{this.state.room.review_count}</span> */}
-   
         </div >
         <MuiThemeProvider>
           <Form room={this.state.room} />
