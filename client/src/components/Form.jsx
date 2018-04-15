@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from '../styles.css';
-import Calendar from './Calendar.jsx'
+import Calendar from './Calendar.jsx';
 import Price from './Price.jsx';
-import { Dropdown, Grid, Segment } from 'semantic-ui-react'
+import { Dropdown, Grid, Segment } from 'semantic-ui-react';
 
 const options = [
   { key: 1, text: 'One Guest', value: 1 },
@@ -53,27 +53,12 @@ export default class Form extends React.Component {
           <span>Guests</span>
         </div>
         <div>
-          {/* <button onClick={this.showMenu}>
-            1 Guest
-          </button>
-          {
-            this.state.showMenu
-            ? (
-              <div className="menu">
-                <div>Adults</div>
-                <div>Children</div>
-                <div>Infants</div>
-              </div>
-            )
-            : (null)
-          } */}
-
           <Dropdown
-            onChange={(event, value)=>this.handleChange(event, value)}
+            onChange={(event, value) => this.handleChange(event, value)}
             options={options}
-            placeholder='1 Guest'
+            placeholder="Select Guest Number"
             selection
-            value={num}
+            // value={num}
           />
           <Price room={this.props.room} option={this.state.total} />
           <button className={styles.button}>Book</button>
