@@ -5,7 +5,6 @@ import Form from './components/Form.jsx';
 import Finding from './components/Finding.jsx';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import styles from './styles.css';
-// import StarRatings from 'react-star-ratings';
 
 
 const axios = require('axios');
@@ -39,7 +38,6 @@ class App extends React.Component {
     axios.get(`/booking/${this.state.room.room_id}`)
       .then((items) => {
         console.log('Data receiced', items.data);
-        console.log(typeof items.data.review_grade)
         this.setState({ room: items.data });
       })
       .catch(err => console.log('Fetching error', err));
@@ -74,5 +72,3 @@ class App extends React.Component {
 }
 
 ReactDOM.render(<App />, document.getElementById('booking'));
-
-

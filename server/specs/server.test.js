@@ -9,7 +9,7 @@ describe('Server', () => {
   test('Should be able to handle GET request', (done) => {
 
     request({
-      url: `${serverUrl}/booking`,
+      url: `${serverUrl}/booking/5`,
       method: 'GET',
     }, (error, response, body) => {
       expect(response.statusCode).toBe(200);
@@ -33,7 +33,7 @@ describe('Server', () => {
   test('Should 404 when asked for a nonexistent room', (done) => {
 
     request({
-      url: `${serverUrl}/fantasyhub`,
+      url: `${serverUrl}/booking/777`,
       method: 'GET',
     }, (error, response, body) => {
       expect(response.statusCode).toBe(404);

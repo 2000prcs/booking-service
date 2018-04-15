@@ -2,6 +2,7 @@ import React from 'react';
 import styles from '../styles.css';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
+import Calendar from './Calendar.jsx'
 import Price from './Price.jsx';
 
 export default class Form extends React.Component {
@@ -20,14 +21,13 @@ export default class Form extends React.Component {
   }
 
   handleChange(event, index, value) {
-    this.setState({ value });
+    this.setState({ option: { guestNumber: value} });
   }
 
   render() {
     return (
       <div className={styles.component}>
         <div>
-          <span>Dates</span>
           <Calendar />
         </div>
         <div>
@@ -45,14 +45,4 @@ export default class Form extends React.Component {
       </div>
     );
   }
-
 }
-
-
-const Calendar = props => (
-
-  <div>
-    <input type="date" />
-  </div>
-
-);
