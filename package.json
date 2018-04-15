@@ -23,6 +23,7 @@
     "mongoose": "^5.0.14",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
+    "react-star-ratings": "^2.2.0",
     "request": "^2.85.0",
     "style-loader": "^0.20.3"
   },
