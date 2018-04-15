@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import Stars from './components/Stars.jsx';
 import Form from './components/Form.jsx';
 import Finding from './components/Finding.jsx';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import styles from './styles.css';
 
 
@@ -58,9 +57,7 @@ class App extends React.Component {
         <div className={styles.component}>
           <Stars room={this.state.room} />
         </div >
-        <MuiThemeProvider>
           <Form room={this.state.room} />
-        </MuiThemeProvider>
         <div className={styles.component}>
           <Finding room={this.state.room}/>
         </div>

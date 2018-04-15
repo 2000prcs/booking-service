@@ -22,11 +22,11 @@ class Price extends React.Component {
         {this.state.discount ?
           <div>
             <span>{this.state.discount}% weekly price discount</span> <span>-${Math.floor((this.props.room.room_rate * this.props.option.totalDays) * 0.06)}</span>
-          </div> : <div> No Discount </div>}
+          </div> : null}
         {this.state.cleaning ?
           <div>
             <span>Cleaning fee</span> <span>${this.state.cleaning}</span>
-          </div> : <div> No Cleaning fee </div>}
+          </div> : null}
         <div>
           <span>Service fee</span> <span>${Math.floor((this.props.room.room_rate * this.props.option.totalDays) * 0.12)}</span>
         </div>
