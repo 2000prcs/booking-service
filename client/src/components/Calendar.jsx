@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from '../styles.css';
 
+// This component is currently included in Form component
 
 class Calendar extends React.Component {
   constructor(props) {

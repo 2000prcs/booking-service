@@ -2,7 +2,7 @@ import React from 'react';
 import styles from '../styles.css';
 import StarRatings from 'react-star-ratings';
 
-const Stars = ({room}) => (
+const Stars = ({ room }) => (
 
   <div>
     <span> <StarRatings

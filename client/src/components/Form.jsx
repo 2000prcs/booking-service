@@ -5,8 +5,11 @@ import Price from './Price.jsx';
 import { Dropdown, Grid, Segment } from 'semantic-ui-react';
 
 const $ = require('jquery');
-const moment = require('moment');
+const Moment = require('moment');
+const MomentRange = require('moment-range');
 const axios = require('axios');
+
+const moment = MomentRange.extendMoment(Moment);
 
 const options = [
   { key: 1, text: 'One Guest', value: 1 },
@@ -23,6 +26,7 @@ export default class Form extends React.Component {
       checkin: '',
       checkout: '',
       days: '',
+      booked: [],
       showMenu: false,
       userInfo: {
         totalGuests: 0,
@@ -69,8 +73,24 @@ export default class Form extends React.Component {
     if (!!startDate && !!endDate) {
       const dateDiff = Math.round((endDate - startDate) / (1000 * 60 * 60 * 24));
       this.setState({ days: dateDiff });
+      this.getBookedDates();
     }
     return false;
+  }
+
+  // Get all booked dates
+  getBookedDates() {
+    // let currentDate = start;
+    // while (start <= end) {
+    //   this.state.booked.push(currentDate);
+    //   currentDate = new Date(currentDate.setDate(currentDate.getDate() + 1));
+    // }
+    // console.log(this.state.booked);
+
+    const dates = [moment(this.state.checkin, 'YYYY-MM-DD'), moment(this.state.checkout, 'YYYY-MM-DD')];
+    const range = moment.range(dates);
+    console.log(range);
+    this.setState({ booked: range });
   }
 
   // For dropdown menu
@@ -88,10 +108,13 @@ export default class Form extends React.Component {
   }
 
 
-
-  // Send booking info to the server
+  // Send booking request to the server
   sendBookingRequest() {
-    axios.post('/booking', data)
+    axios.post('/booking', {
+      room_id: this.props.room.room_id,
+      booked: [],
+      guest_name: 'Mo',
+    })
       .then((response) => {
         console.log('POST request success: ', response);
       })
