@@ -32,6 +32,11 @@ class App extends React.Component {
     this.getRoomData();
   }
 
+  // fetch new room id from the server
+  componentDidUpdate() {
+    
+  }
+
   // Fetch this page's room data
   getRoomData() {
     axios.get(`/booking/${this.state.room.room_id}`)

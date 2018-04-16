@@ -32,12 +32,12 @@ app.get('/booking/:room_id', (req, res) => {
 
 // POST request
 app.post('/booking', (req, res) => {
-  db.update(req.body, (error) => {
+  db.update(req.body, (error, data) => {
     if (error) {
       res.sendStatus(404);
       res.end(error);
     }
-    res.send(req.body);
+    res.send(data);
   });
 });
 
