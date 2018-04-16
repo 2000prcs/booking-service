@@ -4,9 +4,9 @@ import Calendar from './Calendar.jsx';
 import Price from './Price.jsx';
 import { Dropdown, Grid, Segment } from 'semantic-ui-react';
 
-const $ = require('jquery');
 const Moment = require('moment');
 const MomentRange = require('moment-range');
+require('twix');
 const axios = require('axios');
 
 const moment = MomentRange.extendMoment(Moment);
@@ -22,6 +22,7 @@ export default class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      roomId: 0,
       guestNumber: 0,
       checkin: '',
       checkout: '',
@@ -36,11 +37,13 @@ export default class Form extends React.Component {
     };
 
     this.showMenu = this.showMenu.bind(this);
+    this.sendBookingRequest = this.sendBookingRequest.bind(this);
   }
 
   // Set user info for passing it to Price component & sending it to the server
   setUserInfo() {
     this.setState({
+      roomId: this.props.room.room_id,
       userInfo: {
         totalGuests: this.state.guestNumber,
         totalDays: this.state.days,
@@ -80,16 +83,15 @@ export default class Form extends React.Component {
 
   // Get all booked dates
   getBookedDates() {
-    // let currentDate = start;
-    // while (start <= end) {
-    //   this.state.booked.push(currentDate);
-    //   currentDate = new Date(currentDate.setDate(currentDate.getDate() + 1));
-    // }
-    // console.log(this.state.booked);
+    // const dates = [moment(this.state.checkin, 'YYYY-MM-DD'), moment(this.state.checkout, 'YYYY-MM-DD')];
+    // const range = moment.range(dates);
 
-    const dates = [moment(this.state.checkin, 'YYYY-MM-DD'), moment(this.state.checkout, 'YYYY-MM-DD')];
-    const range = moment.range(dates);
-    console.log(range);
+    const date = moment.twix(new Date(this.state.checkin), new Date(this.state.checkout)).iterate('days');
+    const range = [];
+    while (date.hasNext()) {
+      range.push(date.next().toDate());
+    }
+    range.shift();
     this.setState({ booked: range });
   }
 
@@ -110,11 +112,13 @@ export default class Form extends React.Component {
 
   // Send booking request to the server
   sendBookingRequest() {
-    axios.post('/booking', {
-      room_id: this.props.room.room_id,
-      booked: [],
+    const data = {
+      id: this.state.roomId,
+      booked: this.state.booked,
       guest_name: 'Mo',
-    })
+    };
+
+    axios.post('/booking', data)
       .then((response) => {
         console.log('POST request success: ', response);
       })

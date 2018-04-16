@@ -8,6 +8,7 @@ const path = require('path');
 const port = 7777;
 
 const bodyParser = require('body-parser');
+
 app.use(bodyParser.json());
 
 // serve client files
