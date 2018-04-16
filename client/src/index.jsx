@@ -24,7 +24,7 @@ class App extends React.Component {
         review_count: 0,
         review_grade: 0,
       },
-      rooms: []
+      rooms: [],
     };
   }
 
@@ -57,9 +57,9 @@ class App extends React.Component {
         <div className={styles.component}>
           <Stars room={this.state.room} />
         </div >
-          <Form room={this.state.room} />
+        <Form room={this.state.room} />
         <div className={styles.component}>
-          <Finding room={this.state.room}/>
+          <Finding room={this.state.room} />
         </div>
       </div>
 

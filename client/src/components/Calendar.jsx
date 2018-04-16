@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from '../styles.css';
 
-const moment = require('moment');
 
 class Calendar extends React.Component {
   constructor(props) {

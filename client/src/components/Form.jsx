@@ -4,6 +4,10 @@ import Calendar from './Calendar.jsx';
 import Price from './Price.jsx';
 import { Dropdown, Grid, Segment } from 'semantic-ui-react';
 
+const $ = require('jquery');
+const moment = require('moment');
+const axios = require('axios');
+
 const options = [
   { key: 1, text: 'One Guest', value: 1 },
   { key: 2, text: 'Two Guests', value: 2 },
@@ -15,19 +19,61 @@ export default class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      num: 0,
+      guestNumber: 0,
+      checkin: '',
+      checkout: '',
+      days: '',
       showMenu: false,
-      total: {
+      userInfo: {
         totalGuests: 0,
+        totalDays: 0,
         totalPrice: 0,
-        totalDays: 7,
       },
     };
 
     this.showMenu = this.showMenu.bind(this);
-    this.handleChange = this.handleChange.bind(this);
   }
 
+  // Set user info for passing it to Price component & sending it to the server
+  setUserInfo() {
+    this.setState({
+      userInfo: {
+        totalGuests: this.state.guestNumber,
+        totalDays: this.state.days,
+        totalPrice: this.state.days * this.props.room.room_rate,
+      },
+    });
+  }
+
+  // Get check-in and check-out dates from the user
+  // To do: user shouldn't pick startdate after enddate
+  // to do: if user selects different date, it should update the info
+  handleDates(event, type) {
+    event.preventDefault();
+    if (type === 'checkin') {
+      this.setState({ checkin: event.target.value }, this.calculateTotalDays);
+    } else {
+      this.setState({ checkout: event.target.value }, this.calculateTotalDays);
+    }
+  }
+
+  // Calculate days between check-in and check-out
+  parseDate(date) {
+    const mdy = date.split('-');
+    return new Date(mdy[0], mdy[1] - 1, mdy[2]);
+  }
+
+  calculateTotalDays() {
+    const startDate = this.parseDate(this.state.checkin);
+    const endDate = this.parseDate(this.state.checkout);
+    if (!!startDate && !!endDate) {
+      const dateDiff = Math.round((endDate - startDate) / (1000 * 60 * 60 * 24));
+      this.setState({ days: dateDiff });
+    }
+    return false;
+  }
+
+  // For dropdown menu
   showMenu(event) {
     event.preventDefault();
     this.setState({
@@ -36,32 +82,53 @@ export default class Form extends React.Component {
   }
 
 
-  handleChange(event, val) {
-    console.log('event:', event, 'value:', val.value);
-    this.setState({ num: val.value });
+  // Get guest numbers from the user
+  handleGuests(event, val) {
+    this.setState({ guestNumber: val.value }, this.setUserInfo);
+  }
+
+
+
+  // Send booking info to the server
+  sendBookingRequest() {
+    axios.post('/booking', data)
+      .then((response) => {
+        console.log('POST request success: ', response);
+      })
+      .catch((error) => {
+        console.log('POST request failed: ', error);
+      });
   }
 
   render() {
-    const { num } = this.state;
+    const { guestNumber } = this.state;
 
     return (
       <div className={styles.component}>
+        {/* <Calendar /> */}
         <div>
-          <Calendar />
+          <div>
+            <span>Check-In</span>
+            <input onChange={(event, type) => this.handleDates(event, 'checkin')} type="date" className={styles.dates} />
+          </div>
+          <div>
+            <span>Check-Out</span>
+            <input onChange={(event, type) => this.handleDates(event, 'checkout')} type="date" className={styles.dates} />
+          </div>
         </div>
         <div>
           <span>Guests</span>
         </div>
         <div>
           <Dropdown
-            onChange={(event, value) => this.handleChange(event, value)}
+            onChange={(event, value) => this.handleGuests(event, value)}
             options={options}
             placeholder="Select Guest Number"
             selection
-            // value={num}
+          // value={num}
           />
-          <Price room={this.props.room} option={this.state.total} />
-          <button className={styles.button}>Book</button>
+          <Price room={this.props.room} option={this.state.userInfo} />
+          <button className={styles.button} onClick={this.sendBookingRequest}>Book</button>
         </div>
       </div>
     );
