@@ -52,7 +52,7 @@ class App extends React.Component {
   render() {
     return (
 
-      <Container>
+      <div className={styles.container}>
         <div className={styles.component}>
           <span>
             <span>${this.state.room.room_rate}</span>
@@ -66,7 +66,7 @@ class App extends React.Component {
         <div className={styles.component}>
           <Finding room={this.state.room} />
         </div>
-      </Container>
+      </div>
 
 
     );

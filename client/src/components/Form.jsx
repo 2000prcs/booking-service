@@ -1,23 +1,26 @@
 import React from 'react';
 import 'react-dates/initialize';
 import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
-import styles from '../styles.css';
 import Calendar from './Calendar.jsx';
 import Price from './Price.jsx';
-import { Dropdown } from 'semantic-ui-react';
+// import { Dropdown, Icon } from 'semantic-ui-react';
+import styles from '../styles.css';
+import { Icon } from 'semantic-ui-react';
+
 
 const Moment = require('moment');
 const MomentRange = require('moment-range');
+const moment = MomentRange.extendMoment(Moment);
 require('twix');
 const axios = require('axios');
+// import Dropdown, { DropdownTrigger, DropdownContent } from 'react-simple-dropdown';
 
-const moment = MomentRange.extendMoment(Moment);
 
-const options = [
-  { key: 1, text: 'Adults', value: 1 },
-  { key: 2, text: 'Children', value: 2 },
-  { key: 3, text: 'Infant', value: 3 },
-];
+// const options = [
+//   { key: 1, text: 'Adults', value: 1, icon: 'plus' },
+//   { key: 2, text: 'Children', value: 2 },
+//   { key: 3, text: 'Infant', value: 3 },
+// ];
 
 export default class Form extends React.Component {
   constructor(props) {
@@ -30,6 +33,7 @@ export default class Form extends React.Component {
       endDate: null,
       focusedInput: null,
       booked: [],
+      showMenu: false,
       showPrice: false,
       userInfo: {
         totalGuests: 0,
@@ -39,6 +43,8 @@ export default class Form extends React.Component {
     };
 
     this.sendBookingRequest = this.sendBookingRequest.bind(this);
+    this.showMenu = this.showMenu.bind(this);
+    this.closeMenu = this.closeMenu.bind(this);
   }
 
 
@@ -98,10 +104,6 @@ export default class Form extends React.Component {
     this.setState({ showPrice: true });
   }
 
-  handleClick(){
-
-  }
-
 
   // Send booking request to the server
   sendBookingRequest() {
@@ -119,6 +121,26 @@ export default class Form extends React.Component {
         console.error(error);
       });
   }
+
+    
+  showMenu(event) {
+    event.preventDefault();
+    
+    this.setState({ showMenu: true }, () => {
+      document.addEventListener('click', this.closeMenu);
+    });
+  }
+  
+  closeMenu(event) {
+    if (!this.dropdownMenu.contains(event.target)) {
+      
+      this.setState({ showMenu: false }, () => {
+        document.removeEventListener('click', this.closeMenu);
+      });  
+      
+    }
+  }
+
 
   render() {
     const { guestNumber } = this.state;
@@ -142,18 +164,49 @@ export default class Form extends React.Component {
           <span>Guests</span>
         </div>
         <div>
-          <Dropdown
+          {/* <Dropdown
             onChange={(event, value) => this.handleGuests(event, value)}
             options={options}
             placeholder="Select Guest Number"
             selection
             defaultValue={1}
           // value={num}
-          />
-          
-          {this.state.showPrice 
-          ? <Price room={this.props.room} option={this.state.userInfo} /> 
-          : null}
+          /> */}
+
+          <div>
+            <button className={styles.menu} onClick={this.showMenu}>
+              1 guest
+            </button>
+
+            {
+              this.state.showMenu
+                ? (
+                  <div
+                    className="menu"
+                    ref={(element) => {
+                      this.dropdownMenu = element;
+                    }}
+                  >
+                    <div>
+                      <span>Adults</span><Icon name='minus' /> 1 <Icon name='plus' /> 
+                    </div>
+                    <div>
+                      <span>Children</span><Icon name='minus' /> 0 <Icon name='plus' /> 
+                    </div>
+                    <div>
+                      <span>Infants</span><Icon name='minus' /> 0 <Icon name='plus' />
+                    </div>
+                  </div>
+                )
+                : (
+                  null
+                )
+            }
+          </div>
+
+          {this.state.showPrice
+            ? <Price room={this.props.room} option={this.state.userInfo} />
+            : null}
           <button className={styles.button} onClick={this.sendBookingRequest}>Book</button>
         </div>
       </div>

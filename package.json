@@ -27,6 +27,7 @@
     "react": "^16.3.2",
     "react-dates": "^16.6.1",
     "react-dom": "^16.3.2",
+    "react-simple-dropdown": "^3.2.0",
     "react-star-ratings": "^2.2.0",
     "request": "^2.85.0",
     "semantic-ui-react": "^0.79.1",

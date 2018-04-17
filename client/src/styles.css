@@ -1,8 +1,22 @@
 .container {
+  position: fixed;
+  top: 75px;
+  margin-left: 45px;
+  width: 376px;
+  z-index: 3;
   font-family: 'Cabin', sans-serif;
-  letter-spacing: 0.5px;
+  font-size: 17px;
+  font-weight: 300;
+  letter-spacing: 0.2px;
+  line-height: 22px;
+  padding-left: 24px;
+  padding-right: 24px;
+  margin: 0px;
+  box-sizing: border-box;
+  border: 1px solid #e4e4e4;
+  background-color: #ffffff;
+  display: block;
 }
-
 
 .component {
   margin: 10px 10px;
@@ -12,6 +26,9 @@
   margin-left: 10px;
 }
 
+.menu {
+  width: 100%;
+}
 
 .button {
   margin-top: 10px;
@@ -38,3 +55,4 @@
   background: #FF5A5F;
   border-color: transparent;
 }
+
