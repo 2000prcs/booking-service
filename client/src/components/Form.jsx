@@ -46,12 +46,13 @@ export default class Form extends React.Component {
 
 
   // Get check-in and check-out dates from the user
-  // to do: if user selects different date, it should update the info
   componentDidUpdate(prevProps, prevState) {
     if (prevState.endDate !== this.state.endDate) {
       this.getBookedDates();
       this.calculateTotalDays();
-      // this.setUserInfo();
+    }
+    if (prevState.days !== this.state.days) {
+      this.setUserInfo();
     }
   }
 
@@ -69,7 +70,7 @@ export default class Form extends React.Component {
 
   // Get all booked dates
   getBookedDates() {
-    const date = moment.twix(this.state.startDate._d, this.state.endDate._d).iterate('days');
+    const date = moment.twix(this.state.startDate, this.state.endDate).iterate('days');
     const range = [];
     while (date.hasNext()) {
       range.push(date.next().toDate());
@@ -79,34 +80,19 @@ export default class Form extends React.Component {
   }
 
   calculateTotalDays() {
-    const countDays = moment(this.state.startDate._d).twix(this.state.endDate._d).count('days') - 1;
+    const countDays = moment(this.state.startDate).twix(this.state.endDate).count('days') - 1;
     this.setState({ days: countDays });
   }
 
   // To block unavailable dates
   isDayBlocked(day) {
-    //console.log(moment(this.props.room.booked_dates[0]).twix(day).isSame('day'));
-
-    // if (moment(this.props.room.booked_dates[0]).twix(day).isSame('day')) {
-    //   return true;
-    // } 
-    let val = false;
-    let bd = this.props.room.booked_dates;
-    for (let i = 0; i < bd.length; i++) {
-      if (moment(bd[i]).twix(day).isSame('day')) {
+    let reserved = this.props.room.booked_dates;
+    for (let i = 0; i < reserved.length; i++) {
+      if (moment(reserved[i]).twix(day).isSame('day')) {
         return true;
       }
     }
-    return val;
-    
-
-   
-
-    // let notValid = true;
-    // if (this.props.room.booked_dates.contains(day)) {
-    //   notValid = false;
-    // }
-    // return notValid;
+    return false;
   }
 
   // For dropdown menu
@@ -117,10 +103,10 @@ export default class Form extends React.Component {
     });
   }
 
-
   // Get guest numbers from the user
   handleGuests(event, val) {
     this.setState({ guestNumber: val.value }, this.setUserInfo);
+    this.setState({ showPrice: true });
   }
 
 
@@ -149,7 +135,6 @@ export default class Form extends React.Component {
         <div>
           <span>Dates</span>
         </div>
-        {/* <Calendar /> */}
         <DateRangePicker
           startDate={this.state.startDate}
           startDateId="start_date_id"
@@ -171,7 +156,9 @@ export default class Form extends React.Component {
             selection
           // value={num}
           />
-          <Price room={this.props.room} option={this.state.userInfo} />
+          {this.state.showPrice 
+          ? <Price room={this.props.room} option={this.state.userInfo} /> 
+          : null}
           <button className={styles.button} onClick={this.sendBookingRequest}>Book</button>
         </div>
       </div>

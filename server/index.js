@@ -23,9 +23,10 @@ app.get('/booking/:room_id', (req, res) => {
   db.findOne(req.params.room_id, (error, data) => {
     if (error) {
       res.sendStatus(404);
-      res.end(error);
+      res.send(error);
+    } else {
+      res.send(data);
     }
-    res.send(data);
   });
 });
 
@@ -35,9 +36,11 @@ app.post('/booking', (req, res) => {
   db.update(req.body, (error, data) => {
     if (error) {
       res.sendStatus(404);
-      res.end(error);
+      res.send(error);
+    } else {
+      console.log('POST request', data);
+      res.send(data);
     }
-    res.send(data);
   });
 });
 

@@ -53,7 +53,7 @@ const update = (data, callback) => {
 
   Room.findOneAndUpdate({ room_id: data.id }, { $push: { booked_dates: data.booked } }, (err, room) => {
     if (err) {
-      callback(err, null;
+      callback(err, null);
       return console.error(err);
     }
     callback(null, room);
