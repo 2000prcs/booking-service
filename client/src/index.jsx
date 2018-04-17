@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Stars from './components/Stars.jsx';
 import Form from './components/Form.jsx';
 import Finding from './components/Finding.jsx';
+import { Container } from 'semantic-ui-react';
 import styles from './styles.css';
 
 
@@ -34,7 +35,7 @@ class App extends React.Component {
 
   // fetch new room id from the server
   componentDidUpdate() {
-    
+
   }
 
   // Fetch this page's room data
@@ -51,8 +52,7 @@ class App extends React.Component {
   render() {
     return (
 
-      <div className={styles.container}>
-
+      <Container>
         <div className={styles.component}>
           <span>
             <span>${this.state.room.room_rate}</span>
@@ -66,7 +66,7 @@ class App extends React.Component {
         <div className={styles.component}>
           <Finding room={this.state.room} />
         </div>
-      </div>
+      </Container>
 
 
     );

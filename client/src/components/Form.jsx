@@ -4,7 +4,7 @@ import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'rea
 import styles from '../styles.css';
 import Calendar from './Calendar.jsx';
 import Price from './Price.jsx';
-import { Dropdown, Grid, Segment } from 'semantic-ui-react';
+import { Dropdown } from 'semantic-ui-react';
 
 const Moment = require('moment');
 const MomentRange = require('moment-range');
@@ -14,10 +14,9 @@ const axios = require('axios');
 const moment = MomentRange.extendMoment(Moment);
 
 const options = [
-  { key: 1, text: 'One Guest', value: 1 },
-  { key: 2, text: 'Two Guests', value: 2 },
-  { key: 3, text: 'Three Guests', value: 3 },
-  { key: 4, text: 'Four Guests', value: 4 },
+  { key: 1, text: 'Adults', value: 1 },
+  { key: 2, text: 'Children', value: 2 },
+  { key: 3, text: 'Infant', value: 3 },
 ];
 
 export default class Form extends React.Component {
@@ -31,7 +30,6 @@ export default class Form extends React.Component {
       endDate: null,
       focusedInput: null,
       booked: [],
-      showMenu: false,
       showPrice: false,
       userInfo: {
         totalGuests: 0,
@@ -40,12 +38,11 @@ export default class Form extends React.Component {
       },
     };
 
-    this.showMenu = this.showMenu.bind(this);
     this.sendBookingRequest = this.sendBookingRequest.bind(this);
   }
 
 
-  // Get check-in and check-out dates from the user
+  // Update user info every time user makes changes
   componentDidUpdate(prevProps, prevState) {
     if (prevState.endDate !== this.state.endDate) {
       this.getBookedDates();
@@ -95,18 +92,14 @@ export default class Form extends React.Component {
     return false;
   }
 
-  // For dropdown menu
-  showMenu(event) {
-    event.preventDefault();
-    this.setState({
-      showMenu: true,
-    });
-  }
-
   // Get guest numbers from the user
   handleGuests(event, val) {
     this.setState({ guestNumber: val.value }, this.setUserInfo);
     this.setState({ showPrice: true });
+  }
+
+  handleClick(){
+
   }
 
 
@@ -154,8 +147,10 @@ export default class Form extends React.Component {
             options={options}
             placeholder="Select Guest Number"
             selection
+            defaultValue={1}
           // value={num}
           />
+          
           {this.state.showPrice 
           ? <Price room={this.props.room} option={this.state.userInfo} /> 
           : null}
