@@ -26,14 +26,13 @@ export default class Form extends React.Component {
     this.state = {
       roomId: 0,
       guestNumber: 0,
-      // checkin: '',
-      // checkout: '',
-      // days: '',
+      days: 0,
       startDate: null,
       endDate: null,
       focusedInput: null,
       booked: [],
       showMenu: false,
+      showPrice: false,
       userInfo: {
         totalGuests: 0,
         totalDays: 0,
@@ -47,12 +46,12 @@ export default class Form extends React.Component {
 
 
   // Get check-in and check-out dates from the user
-  // To do: user shouldn't pick startdate after enddate
   // to do: if user selects different date, it should update the info
   componentDidUpdate(prevProps, prevState) {
     if (prevState.endDate !== this.state.endDate) {
       this.getBookedDates();
       this.calculateTotalDays();
+      // this.setUserInfo();
     }
   }
 
@@ -68,22 +67,6 @@ export default class Form extends React.Component {
     });
   }
 
-
-  // handleDates(event, type) {
-  //   event.preventDefault();
-  //   if (type === 'checkin') {
-  //     this.setState({ checkin: event.target.value }, this.calculateTotalDays);
-  //   } else {
-  //     this.setState({ checkout: event.target.value }, this.calculateTotalDays);
-  //   }
-  // }
-
-  // // Calculate days between check-in and check-out
-  // parseDate(date) {
-  //   const mdy = date.split('-');
-  //   return new Date(mdy[0], mdy[1] - 1, mdy[2]);
-  // }
-
   // Get all booked dates
   getBookedDates() {
     const date = moment.twix(this.state.startDate._d, this.state.endDate._d).iterate('days');
@@ -96,17 +79,34 @@ export default class Form extends React.Component {
   }
 
   calculateTotalDays() {
-    // const startDate = this.parseDate(this.state.checkin);
-    // const endDate = this.parseDate(this.state.checkout);
-    // if (!!startDate && !!endDate) {
-    //   const dateDiff = Math.round((endDate - startDate) / (1000 * 60 * 60 * 24));
-    //   this.setState({ days: dateDiff });
-    //   this.getBookedDates();
-    // }
-    // return false;
-
     const countDays = moment(this.state.startDate._d).twix(this.state.endDate._d).count('days') - 1;
     this.setState({ days: countDays });
+  }
+
+  // To block unavailable dates
+  isDayBlocked(day) {
+    //console.log(moment(this.props.room.booked_dates[0]).twix(day).isSame('day'));
+
+    // if (moment(this.props.room.booked_dates[0]).twix(day).isSame('day')) {
+    //   return true;
+    // } 
+    let val = false;
+    let bd = this.props.room.booked_dates;
+    for (let i = 0; i < bd.length; i++) {
+      if (moment(bd[i]).twix(day).isSame('day')) {
+        return true;
+      }
+    }
+    return val;
+    
+
+   
+
+    // let notValid = true;
+    // if (this.props.room.booked_dates.contains(day)) {
+    //   notValid = false;
+    // }
+    // return notValid;
   }
 
   // For dropdown menu
@@ -158,17 +158,8 @@ export default class Form extends React.Component {
           onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })}
           focusedInput={this.state.focusedInput}
           onFocusChange={focusedInput => this.setState({ focusedInput })}
+          isDayBlocked={(day) => this.isDayBlocked(day)}
         />
-        {/* <div>
-          <div>
-            <span>Check-In</span>
-            <input onChange={(event, type) => this.handleDates(event, 'checkin')} type="date" className={styles.dates} />
-          </div>
-          <div>
-            <span>Check-Out</span>
-            <input onChange={(event, type) => this.handleDates(event, 'checkout')} type="date" className={styles.dates} />
-          </div>
-        </div> */}
         <div>
           <span>Guests</span>
         </div>
