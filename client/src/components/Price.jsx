@@ -21,24 +21,28 @@ class Price extends React.Component {
     return (
 
       <div>
-        <div>
-          <span>${this.props.option.totalDays} nights</span> 
-          <span>${this.props.option.totalPrice}</span>
+        <div className={styles.prices}>
+          <span>${this.props.option.room_rate} x {this.props.option.totalDays} nights</span>
+          <span className={styles.price}>${this.props.option.totalPrice}</span>
         </div>
         {this.state.discount ?
-          <div>
-            <span>{this.state.discountRate}% weekly price discount</span> <span>-${discount}</span>
+          <div className={styles.prices}>
+            <div className={styles.border} />
+            <span>{this.state.discountRate}% weekly price discount</span> <span className={styles.price}>-${discount}</span>
           </div> : null}
         {this.state.cleaning ?
-          <div>
-            <span>Cleaning fee</span> <span>${this.state.cleaningFee}</span>
+          <div className={styles.prices}>
+            <div className={styles.border} />
+            <span>Cleaning fee</span> <span className={styles.price}>${this.state.cleaningFee}</span>
           </div> : null}
-        <div>
-          <span>Service fee</span> <span>${serviceFee}</span>
+        <div className={styles.prices}>
+          <div className={styles.border} />
+          <span>Service fee</span> <span className={styles.price}>${serviceFee}</span>
         </div>
-        <div>
-          <span>Total</span>
-          <span>
+        <div className={styles.prices}>
+          <div className={styles.border} />
+          <span className={styles.strong}>Total</span>
+          <span className={styles.price}>
             ${(this.props.option.totalPrice - discount) + this.state.cleaningFee + serviceFee}
           </span>
         </div>

@@ -3,31 +3,26 @@ import 'react-dates/initialize';
 import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
 import Calendar from './Calendar.jsx';
 import Price from './Price.jsx';
-// import { Dropdown, Icon } from 'semantic-ui-react';
 import styles from '../styles.css';
 import { Icon } from 'semantic-ui-react';
 
 
 const Moment = require('moment');
 const MomentRange = require('moment-range');
+
 const moment = MomentRange.extendMoment(Moment);
 require('twix');
 const axios = require('axios');
-// import Dropdown, { DropdownTrigger, DropdownContent } from 'react-simple-dropdown';
 
-
-// const options = [
-//   { key: 1, text: 'Adults', value: 1, icon: 'plus' },
-//   { key: 2, text: 'Children', value: 2 },
-//   { key: 3, text: 'Infant', value: 3 },
-// ];
 
 export default class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       roomId: 0,
-      guestNumber: 0,
+      adults: 1,
+      children: 0,
+      infants: 0,
       days: 0,
       startDate: null,
       endDate: null,
@@ -36,7 +31,8 @@ export default class Form extends React.Component {
       showMenu: false,
       showPrice: false,
       userInfo: {
-        totalGuests: 0,
+        room_rate: 0,
+        totalGuests: 1,
         totalDays: 0,
         totalPrice: 0,
       },
@@ -64,7 +60,8 @@ export default class Form extends React.Component {
     this.setState({
       roomId: this.props.room.room_id,
       userInfo: {
-        totalGuests: this.state.guestNumber,
+        room_rate: this.props.room.room_rate,
+        totalGuests: this.state.adults + this.state.children,
         totalDays: this.state.days,
         totalPrice: this.state.days * this.props.room.room_rate,
       },
@@ -89,7 +86,7 @@ export default class Form extends React.Component {
 
   // To block unavailable dates
   isDayBlocked(day) {
-    let reserved = this.props.room.booked_dates;
+    const reserved = this.props.room.booked_dates;
     for (let i = 0; i < reserved.length; i++) {
       if (moment(reserved[i]).twix(day).isSame('day')) {
         return true;
@@ -99,9 +96,53 @@ export default class Form extends React.Component {
   }
 
   // Get guest numbers from the user
-  handleGuests(event, val) {
-    this.setState({ guestNumber: val.value }, this.setUserInfo);
-    this.setState({ showPrice: true });
+  handleGuests(event, type, guestType) {
+    event.preventDefault();
+
+    const guestTypes = {
+      adults: 'adults',
+      children: this.state.children,
+      infants: this.state.infants,
+    };
+
+    if (guestType === 'adults') {
+      if (type === 'plus') {
+        this.setState((prevState) => {
+          return { adults: prevState.adults + 1 };
+        });
+      } else if (type === 'minus') {
+        if (this.state.adults >= 2) {
+          this.setState((prevState) => {
+            return { adults: prevState.adults - 1 };
+          });
+        }
+      }
+    } else if (guestType === 'children') {
+      if (type === 'plus') {
+        this.setState((prevState) => {
+          return { children: prevState.children + 1 };
+        });
+      } else if (type === 'minus') {
+        if (this.state.children >= 1) {
+          this.setState((prevState) => {
+            return { children: prevState.children - 1 };
+          });
+        }
+      }
+    } else if (guestType === 'infants') {
+      if (type === 'plus') {
+        this.setState((prevState) => {
+          return { infants: prevState.infants + 1 };
+        });
+      } else if (type === 'minus') {
+        if (this.state.infants >= 1) {
+          this.setState((prevState) => {
+            return { infants: prevState.infants - 1 };
+          });
+        }
+      }
+    }
+    this.setState({ showPrice: true }, this.setUserInfo);
   }
 
 
@@ -116,35 +157,32 @@ export default class Form extends React.Component {
     axios.post('/booking', data)
       .then((response) => {
         console.log('POST request success: ', response);
+        alert('Congratulations! The room is reserved for you!');
       })
       .catch((error) => {
         console.error(error);
       });
   }
 
-    
+
   showMenu(event) {
     event.preventDefault();
-    
+
     this.setState({ showMenu: true }, () => {
       document.addEventListener('click', this.closeMenu);
     });
   }
-  
+
   closeMenu(event) {
     if (!this.dropdownMenu.contains(event.target)) {
-      
       this.setState({ showMenu: false }, () => {
         document.removeEventListener('click', this.closeMenu);
-      });  
-      
+      });
     }
   }
 
 
   render() {
-    const { guestNumber } = this.state;
-
     return (
       <div className={styles.component}>
         <div>
@@ -158,43 +196,47 @@ export default class Form extends React.Component {
           onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })}
           focusedInput={this.state.focusedInput}
           onFocusChange={focusedInput => this.setState({ focusedInput })}
-          isDayBlocked={(day) => this.isDayBlocked(day)}
+          isDayBlocked={day => this.isDayBlocked(day)}
         />
         <div>
           <span>Guests</span>
         </div>
         <div>
-          {/* <Dropdown
-            onChange={(event, value) => this.handleGuests(event, value)}
-            options={options}
-            placeholder="Select Guest Number"
-            selection
-            defaultValue={1}
-          // value={num}
-          /> */}
-
           <div>
-            <button className={styles.menu} onClick={this.showMenu}>
-              1 guest
+            <button className={styles.guestMenu} onClick={this.showMenu}>
+              <span>{this.state.userInfo.totalGuests} {this.state.userInfo.totalGuests >= 2 ? 'guests' : 'guest'}</span>
+              <i id={styles.arrow} className={this.state.showMenu ? 'fas fa-angle-up' : 'fas fa-angle-down'} />
             </button>
 
             {
               this.state.showMenu
                 ? (
                   <div
-                    className="menu"
+                    className={styles.menu}
                     ref={(element) => {
                       this.dropdownMenu = element;
                     }}
                   >
-                    <div>
-                      <span>Adults</span><Icon name='minus' /> 1 <Icon name='plus' /> 
+                    <div className={styles.guestType}>
+                      <span>Adults</span>
+                      <Icon className={styles.icon} name="plus circle" onClick={e => this.handleGuests(e, 'plus', 'adults')} />
+                      <span className={styles.guest}>{this.state.adults}</span>
+                      <Icon className={styles.icon} name="minus circle" onClick={e => this.handleGuests(e, 'minus', 'adults')} />
                     </div>
-                    <div>
-                      <span>Children</span><Icon name='minus' /> 0 <Icon name='plus' /> 
+                    <div className={styles.guestType}> 
+                      <span>Children</span>
+                      <Icon className={styles.icon} name="plus circle" onClick={e => this.handleGuests(e, 'plus', 'children')} />
+                      <span className={styles.guest}>{this.state.children}</span>
+                      <Icon className={styles.icon} name="minus circle" onClick={e => this.handleGuests(e, 'minus', 'children')} />
                     </div>
-                    <div>
-                      <span>Infants</span><Icon name='minus' /> 0 <Icon name='plus' />
+                    <div className={styles.guestType}>
+                      <span>Infants</span>
+                      <Icon className={styles.icon} name="plus circle" onClick={e => this.handleGuests(e, 'plus', 'infants')} />
+                      <span className={styles.guest}>{this.state.infants}</span>
+                      <Icon className={styles.icon} name="minus circle" onClick={e => this.handleGuests(e, 'minus', 'infants')} />
+                    </div>
+                    <div className={styles.guestCaption}>
+                      <span >Infants don't count toward the number of guests.</span>
                     </div>
                   </div>
                 )
@@ -207,6 +249,8 @@ export default class Form extends React.Component {
           {this.state.showPrice
             ? <Price room={this.props.room} option={this.state.userInfo} />
             : null}
+          {/* {this.state.showMenu
+            ? null : */}
           <button className={styles.button} onClick={this.sendBookingRequest}>Book</button>
         </div>
       </div>

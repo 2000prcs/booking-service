@@ -13,7 +13,7 @@ const Stars = ({ room }) => (
       numberOfStars={5}
     />
     </span>
-    <span>{room.review_count}</span>
+    <span>   {room.review_count}</span>
   </div>
 
 );

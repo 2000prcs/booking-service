@@ -5,7 +5,7 @@
   width: 376px;
   z-index: 3;
   font-family: 'Cabin', sans-serif;
-  font-size: 17px;
+  font-size: 12px;
   font-weight: 300;
   letter-spacing: 0.2px;
   line-height: 22px;
@@ -22,13 +22,66 @@
   margin: 10px 10px;
 }
 
+.border {
+  border-bottom: 1px solid #DBDBDB;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.font {
+  word-wrap: break-word;
+  font-size: 22px;
+  line-height: 28px;
+  letter-spacing: -0.2px;
+  color: #484848;
+  font-weight: 700;
+}
+
+
 .dates {
   margin-left: 10px;
 }
 
-.menu {
-  width: 100%;
+.guestMenu {
+    font-size: 17px;
+    background: #ffffff;
+    text-align: left;
+    border-radius: 2px;
+    padding: 8px;
+    line-height: normal;
+    display: block;
+    width: 100%;
+    border: 1px solid #DBDBDB;
+    margin-bottom: 10px;
 }
+
+
+.menu {
+  background: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.07);
+  border-radius: 3px;
+  width: 100%;
+  min-width: 280px;
+  text-align: left;
+  padding: 0 16px;
+  margin-bottom: 16px;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  z-index: 2;
+  left: 0px;
+  display: block;
+  color: #484848;
+  font-size: 17px;
+  font-weight: 300;
+  letter-spacing: 0.2px;
+  line-height: 22px;
+  border-top: 2px solid #008489;
+}
+
+.guestType {
+  margin-top: 10px;
+}
+
 
 .button {
   margin-top: 10px;
@@ -40,7 +93,6 @@
   text-decoration: none;
   border-radius: 4px;
   width: 100%;
-  font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif;
   font-size: 19px;
   line-height: 22px;
   padding-top: 12px;
@@ -56,3 +108,65 @@
   border-color: transparent;
 }
 
+#arrow {
+  float: right;
+}
+
+.icon {
+  float: right;
+}
+
+.guest {
+  float: right;
+}
+
+.guestCaption {
+  margin-top: 20px; 
+  font-size: 15px;
+  line-height: 18px;
+  letter-spacing: 0.2px;
+  word-wrap: break-word;
+  font-weight: 300;
+}
+
+
+.prices {
+  margin-top: 5px;
+  font-size: 15px;
+  font-weight: normal;
+}
+
+.price {
+  float: right;
+}
+
+.strong {
+  font-weight: 800;
+}
+
+.info {
+  text-align: center;
+  display: block;
+}
+
+
+
+.find {
+  font-weight: 800;
+  font-size: 15px;
+  line-height: 18px;
+  letter-spacing: 0.2px;
+  word-wrap: break-word;
+}
+
+.finding {
+  margin-top: 6px;
+  word-wrap: break-word;
+  font-size: 15px;
+  line-height: 18px;
+  letter-spacing: 0.2px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  color: #484848;
+  font-weight: 300;
+}

@@ -55,15 +55,18 @@ class App extends React.Component {
       <div className={styles.container}>
         <div className={styles.component}>
           <span>
-            <span>${this.state.room.room_rate}</span>
+            <span className={styles.font}>${this.state.room.room_rate}</span>
             <span> per night</span>
           </span>
         </div>
         <div className={styles.component}>
           <Stars room={this.state.room} />
         </div >
+        <div className={styles.border} />
         <Form room={this.state.room} />
         <div className={styles.component}>
+          <span className={styles.info}>You won't be charged yet</span>
+          <div className={styles.border} />
           <Finding room={this.state.room} />
         </div>
       </div>

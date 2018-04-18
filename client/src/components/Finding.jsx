@@ -5,11 +5,11 @@ const Finding = ({room}) => (
 
   <div>
     <div>
-      <span>This is a rare find.</span>
+      <span className={styles.find}>This is a rare find.</span>
     </div>
     <div>
-      <span>{room.host_name}'s place is usually booked. </span>
-      <i className="fas fa-gem" />
+      <span className={styles.finding}>{room.host_name}'s place is usually booked. </span>
+      <span className={styles.icon}><i className="fas fa-gem" /></span>
     </div>
   </div>
 
