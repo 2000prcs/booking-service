@@ -23,6 +23,8 @@ export default class Form extends React.Component {
       adults: 1,
       children: 0,
       infants: 0,
+      // limit days to maximum
+      maximumDays: 4,
       days: 0,
       startDate: null,
       endDate: null,
@@ -107,9 +109,11 @@ export default class Form extends React.Component {
 
     if (guestType === 'adults') {
       if (type === 'plus') {
-        this.setState((prevState) => {
-          return { adults: prevState.adults + 1 };
-        });
+        if ((this.state.maximumDays - (this.state.adults + this.state.children)) >= 1) {
+          this.setState((prevState) => {
+            return { adults: prevState.adults + 1 };
+          });
+        }
       } else if (type === 'minus') {
         if (this.state.adults >= 2) {
           this.setState((prevState) => {
@@ -119,9 +123,11 @@ export default class Form extends React.Component {
       }
     } else if (guestType === 'children') {
       if (type === 'plus') {
-        this.setState((prevState) => {
-          return { children: prevState.children + 1 };
-        });
+        if ((this.state.maximumDays - (this.state.adults + this.state.children)) >= 1) {
+          this.setState((prevState) => {
+            return { children: prevState.children + 1 };
+          });
+        }
       } else if (type === 'minus') {
         if (this.state.children >= 1) {
           this.setState((prevState) => {
@@ -224,19 +230,19 @@ export default class Form extends React.Component {
                       <Icon className={styles.icon} name="minus circle" onClick={e => this.handleGuests(e, 'minus', 'adults')} />
                     </div>
                     <div className={styles.guestType}> 
-                      <span>Children</span>
+                      <span>Children  (Ages 2 - 12)</span>
                       <Icon className={styles.icon} name="plus circle" onClick={e => this.handleGuests(e, 'plus', 'children')} />
                       <span className={styles.guest}>{this.state.children}</span>
                       <Icon className={styles.icon} name="minus circle" onClick={e => this.handleGuests(e, 'minus', 'children')} />
                     </div>
                     <div className={styles.guestType}>
-                      <span>Infants</span>
+                      <span>Infants   (Under 2)</span>
                       <Icon className={styles.icon} name="plus circle" onClick={e => this.handleGuests(e, 'plus', 'infants')} />
                       <span className={styles.guest}>{this.state.infants}</span>
                       <Icon className={styles.icon} name="minus circle" onClick={e => this.handleGuests(e, 'minus', 'infants')} />
                     </div>
                     <div className={styles.guestCaption}>
-                      <span >Infants don't count toward the number of guests.</span>
+                      <span >{this.state.maximumDays} guests maximum. Infants don't count toward the number of guests.</span>
                     </div>
                   </div>
                 )
