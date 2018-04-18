@@ -1,7 +1,6 @@
 import React from 'react';
 import 'react-dates/initialize';
 import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
-import Calendar from './Calendar.jsx';
 import Price from './Price.jsx';
 import styles from '../styles.css';
 import { Icon } from 'semantic-ui-react';
@@ -14,7 +13,6 @@ const moment = MomentRange.extendMoment(Moment);
 require('twix');
 const axios = require('axios');
 
-
 export default class Form extends React.Component {
   constructor(props) {
     super(props);
@@ -23,8 +21,7 @@ export default class Form extends React.Component {
       adults: 1,
       children: 0,
       infants: 0,
-      // limit days to maximum
-      maximumDays: 4,
+      maximumGuests: 4,
       days: 0,
       startDate: null,
       endDate: null,
@@ -97,55 +94,30 @@ export default class Form extends React.Component {
     return false;
   }
 
-  // Get guest numbers from the user
-  handleGuests(event, type, guestType) {
-    event.preventDefault();
+  // Increment & decrement guest numbers
+  incrementGuest(e, guestType) {
+    e.preventDefault();
+    if ((this.state.maximumGuests - (this.state.adults + this.state.children)) >= 1) {
+      this.setState((prevState) => {
+        return { [guestType]: prevState[guestType] + 1 };
+      });
+    }
+    this.setState({ showPrice: true }, this.setUserInfo);
+  }
 
-    const guestTypes = {
-      adults: 'adults',
-      children: this.state.children,
-      infants: this.state.infants,
-    };
-
+  decrementGuest(e, guestType) {
+    e.preventDefault();
     if (guestType === 'adults') {
-      if (type === 'plus') {
-        if ((this.state.maximumDays - (this.state.adults + this.state.children)) >= 1) {
-          this.setState((prevState) => {
-            return { adults: prevState.adults + 1 };
-          });
-        }
-      } else if (type === 'minus') {
-        if (this.state.adults >= 2) {
-          this.setState((prevState) => {
-            return { adults: prevState.adults - 1 };
-          });
-        }
-      }
-    } else if (guestType === 'children') {
-      if (type === 'plus') {
-        if ((this.state.maximumDays - (this.state.adults + this.state.children)) >= 1) {
-          this.setState((prevState) => {
-            return { children: prevState.children + 1 };
-          });
-        }
-      } else if (type === 'minus') {
-        if (this.state.children >= 1) {
-          this.setState((prevState) => {
-            return { children: prevState.children - 1 };
-          });
-        }
-      }
-    } else if (guestType === 'infants') {
-      if (type === 'plus') {
+      if (this.state[guestType] >= 2) {
         this.setState((prevState) => {
-          return { infants: prevState.infants + 1 };
+          return { [guestType]: prevState[guestType] - 1 };
         });
-      } else if (type === 'minus') {
-        if (this.state.infants >= 1) {
-          this.setState((prevState) => {
-            return { infants: prevState.infants - 1 };
-          });
-        }
+      }
+    } else {
+      if (this.state[guestType] >= 1) {
+        this.setState((prevState) => {
+          return { [guestType]: prevState[guestType] - 1 };
+        });
       }
     }
     this.setState({ showPrice: true }, this.setUserInfo);
@@ -189,6 +161,7 @@ export default class Form extends React.Component {
 
 
   render() {
+
     return (
       <div className={styles.component}>
         <div>
@@ -209,10 +182,10 @@ export default class Form extends React.Component {
         </div>
         <div>
           <div>
-            <button className={styles.guestMenu} onClick={this.showMenu}>
+            <div className={styles.guestMenu} onClick={this.showMenu}>
               <span>{this.state.userInfo.totalGuests} {this.state.userInfo.totalGuests >= 2 ? 'guests' : 'guest'}</span>
               <i id={styles.arrow} className={this.state.showMenu ? 'fas fa-angle-up' : 'fas fa-angle-down'} />
-            </button>
+            </div>
 
             {
               this.state.showMenu
@@ -225,24 +198,24 @@ export default class Form extends React.Component {
                   >
                     <div className={styles.guestType}>
                       <span>Adults</span>
-                      <Icon className={styles.icon} name="plus circle" onClick={e => this.handleGuests(e, 'plus', 'adults')} />
+                      <Icon className={styles.icon} name="plus circle" onClick={e => this.incrementGuest(e, 'adults')} />
                       <span className={styles.guest}>{this.state.adults}</span>
-                      <Icon className={styles.icon} name="minus circle" onClick={e => this.handleGuests(e, 'minus', 'adults')} />
+                      <Icon className={styles.icon} name="minus circle" onClick={e => this.decrementGuest(e, 'adults')} />
                     </div>
                     <div className={styles.guestType}> 
                       <span>Children  (Ages 2 - 12)</span>
-                      <Icon className={styles.icon} name="plus circle" onClick={e => this.handleGuests(e, 'plus', 'children')} />
+                      <Icon className={styles.icon} name="plus circle" onClick={e => this.incrementGuest(e, 'children')} />
                       <span className={styles.guest}>{this.state.children}</span>
-                      <Icon className={styles.icon} name="minus circle" onClick={e => this.handleGuests(e, 'minus', 'children')} />
+                      <Icon className={styles.icon} name="minus circle" onClick={e => this.decrementGuest(e, 'children')} />
                     </div>
                     <div className={styles.guestType}>
                       <span>Infants   (Under 2)</span>
-                      <Icon className={styles.icon} name="plus circle" onClick={e => this.handleGuests(e, 'plus', 'infants')} />
+                      <Icon className={styles.icon} name="plus circle" onClick={e => this.incrementGuest(e, 'infants')} />
                       <span className={styles.guest}>{this.state.infants}</span>
-                      <Icon className={styles.icon} name="minus circle" onClick={e => this.handleGuests(e, 'minus', 'infants')} />
+                      <Icon className={styles.icon} name="minus circle" onClick={e => this.decrementGuest(e, 'infants')} />
                     </div>
                     <div className={styles.guestCaption}>
-                      <span >{this.state.maximumDays} guests maximum. Infants don't count toward the number of guests.</span>
+                      <span >{this.state.maximumGuests} guests maximum. Infants don't count toward the number of guests.</span>
                     </div>
                   </div>
                 )
