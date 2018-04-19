@@ -25,8 +25,10 @@ class Booking extends React.Component {
   }
 
   // fetch new room id from the server
-  componentDidUpdate() {
-    this.getRoomData();
+  componentDidUpdate(prevProps) {
+    if (prevProps.room !== this.props.room) {
+      this.getRoomData();
+    }
   }
 
   // Fetch this page's room data
