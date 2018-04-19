@@ -32,6 +32,7 @@ const bookingSchema = mongoose.Schema({
   cleaning_fee: Boolean,
   review_count: Number,
   review_grade: Number,
+  // rare = true or false ?
   created_date: { type: Date, default: Date.now },
 
 });
@@ -41,7 +42,7 @@ const Room = mongoose.model('room', bookingSchema);
 
 
 // adding booking dates to DB (only booked_dates)
-const update = (data) => {
+const update = (data, callback) => {
 
   let newBooking = {
     room_id: data.id,
@@ -51,7 +52,11 @@ const update = (data) => {
   };
 
   Room.findOneAndUpdate({ room_id: data.id }, { $push: { booked_dates: data.booked } }, (err, room) => {
-    if (err) return console.error(err);
+    if (err) {
+      callback(err, null);
+      return console.error(err);
+    }
+    callback(null, room);
     console.log('Data updated :', room);
   });
 };
@@ -66,11 +71,15 @@ const find = (callback) => {
 };
 
 
-// For DB testing
+// fetching one specific room data from DB
 const findOne = (id, callback) => {
   Room.findOne({ room_id: id }).exec((err, room) => {
-    if (err) return console.error(err);
-    callback(room);
+    if (err) {
+      console.log(err);
+      callback(err, null);
+      return console.error(err);
+    }
+    callback(null, room);
   });
 };
 

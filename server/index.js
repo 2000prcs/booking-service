@@ -8,26 +8,40 @@ const path = require('path');
 const port = 7777;
 
 const bodyParser = require('body-parser');
+
 app.use(bodyParser.json());
 
 // serve client files
-app.use(express.static(path.join(__dirname, '/../client')));
+app.use(express.static(path.join(__dirname, '/../client/dist')));
 
 // import DB
 const db = require('../database');
 
 // GET request
-app.get('/booking', (req, res) => {
-  db.find((data) => {
-    res.send(data);
+app.get('/booking/:room_id', (req, res) => {
+  console.log('Confirm params:', req.params);
+  db.findOne(req.params.room_id, (error, data) => {
+    if (error) {
+      res.sendStatus(404);
+      res.send(error);
+    } else {
+      res.send(data);
+    }
   });
 });
 
 
 // POST request
 app.post('/booking', (req, res) => {
-  db.update(req.body);
-  res.send(req.body);
+  db.update(req.body, (error, data) => {
+    if (error) {
+      res.sendStatus(404);
+      res.send(error);
+    } else {
+      console.log('POST request', data);
+      res.send(data);
+    }
+  });
 });
 
 // listen to the port
