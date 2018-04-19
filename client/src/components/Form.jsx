@@ -119,7 +119,7 @@ export default class Form extends React.Component {
           return { [guestType]: prevState[guestType] - 1 };
         });
       }
-    }
+    }welw
     this.setState({ showPrice: true }, this.setUserInfo);
   }
 

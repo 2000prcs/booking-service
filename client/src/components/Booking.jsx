@@ -18,14 +18,12 @@ class Booking extends React.Component {
         room_id: this.props.room,
         room_rate: '',
         room_name: '',
-        world_name: '',
         host_name: '',
         booked_dates: [],
         guest_number: 0,
         review_count: 0,
         review_grade: 0,
       },
-      rooms: [],
     };
   }
 
