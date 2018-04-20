@@ -20,6 +20,7 @@
     "css-loader": "^0.28.11",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-to-json": "^3.3.3",
     "express": "^4.16.3",
     "lodash": "^4.17.5",
     "material-ui": "^0.20.0",
@@ -58,12 +59,16 @@
   "jest": {
     "verbose": true,
     "transform": {
-      "^.+\\.jsx?$": "babel-jest"
+      "^.+\\.jsx?$": "babel-jest",
+      "^.+\\.js?$": "babel-jest"
     },
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/client/specs/__mocks__/fileMock.js",
       "\\.(css|less)$": "<rootDir>/client/specs/__mocks__/styleMock.js"
     },
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
     "setupFiles": [
       "./testSetUp.js"
     ]

@@ -20,7 +20,7 @@ class Price extends React.Component {
 
     return (
 
-      <div>
+      <div id="price-component">
         <div className={styles.prices}>
           <span>${this.props.option.room_rate} x {this.props.option.totalDays} nights</span>
           <span className={styles.price}>${this.props.option.totalPrice}</span>
