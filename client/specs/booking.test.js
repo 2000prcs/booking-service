@@ -11,7 +11,12 @@ describe('<Booking />', () => {
     Booking.prototype.getRoomData.restore();
   });
 
-  //componentdidupdate test
 
-  
+  test('Should fetch a different room data again when the room id gets updated', () => {
+    sinon.spy(Booking.prototype, 'getRoomData');
+    const wrapper = mount( < Booking room={5} /> );
+    wrapper.setProps({ room: 21 });
+    expect(Booking.prototype.getRoomData.calledTwice).toBe(true);
+    Booking.prototype.getRoomData.restore();
+  });
 });
