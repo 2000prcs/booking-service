@@ -35,10 +35,9 @@ class Booking extends React.Component {
   getRoomData() {
     axios.get(`/booking/${this.state.room.room_id}`)
       .then((items) => {
-        console.log('Data receiced', items.data);
         this.setState({ room: items.data });
       })
-      .catch(err => console.log('Fetching error', err));
+      .catch(err => console.error(err));
   }
 
 

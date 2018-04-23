@@ -132,7 +132,6 @@ export default class Form extends React.Component {
 
     axios.post('/booking', data)
       .then((response) => {
-        console.log('POST request success: ', response);
         alert('Congratulations! The room is reserved for you!');
       })
       .catch((error) => {

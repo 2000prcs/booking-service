@@ -19,7 +19,6 @@ const db = require('../database');
 
 // GET request
 app.get('/booking/:room_id', (req, res) => {
-  console.log('Confirm params:', req.params);
   db.findOne(req.params.room_id, (error, data) => {
     if (error) {
       res.sendStatus(404);
@@ -38,7 +37,6 @@ app.post('/booking', (req, res) => {
       res.sendStatus(404);
       res.send(error);
     } else {
-      console.log('POST request', data);
       res.send(data);
     }
   });

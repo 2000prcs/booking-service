@@ -57,7 +57,6 @@ const update = (data, callback) => {
       return console.error(err);
     }
     callback(null, room);
-    console.log('Data updated :', room);
   });
 };
 
@@ -75,7 +74,6 @@ const find = (callback) => {
 const findOne = (id, callback) => {
   Room.findOne({ room_id: id }).exec((err, room) => {
     if (err) {
-      console.log(err);
       callback(err, null);
       return console.error(err);
     }
