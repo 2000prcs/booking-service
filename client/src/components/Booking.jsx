@@ -69,3 +69,4 @@ class Booking extends React.Component {
 }
 
 export default Booking;
+
