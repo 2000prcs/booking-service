@@ -96,7 +96,6 @@ export default class Form extends React.Component {
 
   // Increment & decrement guest numbers
   incrementGuest(e, guestType) {
-    e.preventDefault();
     if ((this.state.maximumGuests - (this.state.adults + this.state.children)) >= 1) {
       this.setState((prevState) => {
         return { [guestType]: prevState[guestType] + 1 };
@@ -106,7 +105,6 @@ export default class Form extends React.Component {
   }
 
   decrementGuest(e, guestType) {
-    e.preventDefault();
     if (guestType === 'adults') {
       if (this.state[guestType] >= 2) {
         this.setState((prevState) => {
@@ -119,7 +117,7 @@ export default class Form extends React.Component {
           return { [guestType]: prevState[guestType] - 1 };
         });
       }
-    }welw
+    }
     this.setState({ showPrice: true }, this.setUserInfo);
   }
 
@@ -198,21 +196,21 @@ export default class Form extends React.Component {
                   >
                     <div className={styles.guestType}>
                       <span>Adults</span>
-                      <Icon className={styles.icon} name="plus circle" onClick={e => this.incrementGuest(e, 'adults')} />
+                      <Icon id="adult-plus" className={styles.icon} name="plus circle" onClick={e => this.incrementGuest(e, 'adults')} />
                       <span className={styles.guest}>{this.state.adults}</span>
-                      <Icon className={styles.icon} name="minus circle" onClick={e => this.decrementGuest(e, 'adults')} />
+                      <Icon id="adult-minus" className={styles.icon} name="minus circle" onClick={e => this.decrementGuest(e, 'adults')} />
                     </div>
                     <div className={styles.guestType}> 
                       <span>Children  (Ages 2 - 12)</span>
-                      <Icon className={styles.icon} name="plus circle" onClick={e => this.incrementGuest(e, 'children')} />
+                      <Icon id="children-plus" className={styles.icon} name="plus circle" onClick={e => this.incrementGuest(e, 'children')} />
                       <span className={styles.guest}>{this.state.children}</span>
-                      <Icon className={styles.icon} name="minus circle" onClick={e => this.decrementGuest(e, 'children')} />
+                      <Icon id="children-minus" className={styles.icon} name="minus circle" onClick={e => this.decrementGuest(e, 'children')} />
                     </div>
-                    <div className={styles.guestType}>
+                    <div id="infant" className={styles.guestType}>
                       <span>Infants   (Under 2)</span>
-                      <Icon className={styles.icon} name="plus circle" onClick={e => this.incrementGuest(e, 'infants')} />
+                      <Icon id="infant-plus" className={styles.icon} name="plus circle" onClick={e => this.incrementGuest(e, 'infants')} />
                       <span className={styles.guest}>{this.state.infants}</span>
-                      <Icon className={styles.icon} name="minus circle" onClick={e => this.decrementGuest(e, 'infants')} />
+                      <Icon id="infant-minus" className={styles.icon} name="minus circle" onClick={e => this.decrementGuest(e, 'infants')} />
                     </div>
                     <div className={styles.guestCaption}>
                       <span >{this.state.maximumGuests} guests maximum. Infants don't count toward the number of guests.</span>
