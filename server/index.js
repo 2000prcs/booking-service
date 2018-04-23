@@ -2,6 +2,10 @@
 const express = require('express');
 
 const app = express();
+// CORS
+const cors = require('cors');
+
+app.use(cors());
 
 const path = require('path');
 
@@ -14,12 +18,6 @@ app.use(bodyParser.json());
 
 // serve client files
 app.use(express.static(path.join(__dirname, '/../client/dist')));
-
-// CORS
-const cors = require('cors');
-
-app.use(cors());
-
 
 // import DB
 const db = require('../database');

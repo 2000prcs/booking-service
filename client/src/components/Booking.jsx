@@ -14,8 +14,19 @@ class Booking extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      // room: {
+      //   room_id: this.props.room,
+      // },
       room: {
-        room_id: this.props.room,
+        room_id: 5,
+        booked_dates: [],
+        guest_number: 186,
+        host_name: 'Rebecca',
+        review_count: 93,
+        review_grade: 5,
+        room_name: '944 Market St.',
+        room_rate: 93,
+        world_name: 'Hack Reactor',
       },
     };
   }
@@ -33,7 +44,7 @@ class Booking extends React.Component {
 
   // Fetch this page's room data
   getRoomData() {
-    axios.get(`/booking/${this.state.room.room_id}`)
+    axios.get(`http://localhost:7777/booking/${this.state.room.room_id}`)
       .then((items) => {
         this.setState({ room: items.data });
       })
