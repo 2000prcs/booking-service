@@ -16,10 +16,8 @@
 <script src="http://localhost:7777/bundle.js"></script>
 <!-- <script type="text/javascript" src="bundle.js"></script> -->
 <script>
-    let roomId = window.location.pathname.split('/')[1];
-    console.log(roomId);
     ReactDOM.render(
-      React.createElement(Booking, {room: roomId}),
+      React.createElement(Booking, {room: 5}),
       document.getElementById('booking')
     );
 </script>

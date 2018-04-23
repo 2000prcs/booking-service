@@ -14,20 +14,20 @@ class Booking extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // room: {
-      //   room_id: this.props.room,
-      // },
       room: {
-        room_id: 5,
-        booked_dates: [],
-        guest_number: 186,
-        host_name: 'Rebecca',
-        review_count: 93,
-        review_grade: 5,
-        room_name: '944 Market St.',
-        room_rate: 93,
-        world_name: 'Hack Reactor',
+        room_id: this.props.room,
       },
+      // room: {
+      //   room_id: 5,
+      //   booked_dates: [],
+      //   guest_number: 186,
+      //   host_name: 'Rebecca',
+      //   review_count: 93,
+      //   review_grade: 5,
+      //   room_name: '944 Market St.',
+      //   room_rate: 93,
+      //   world_name: 'Hack Reactor',
+      // },
     };
   }
 
