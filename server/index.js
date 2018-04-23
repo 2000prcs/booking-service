@@ -11,8 +11,15 @@ const bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
 
+
 // serve client files
 app.use(express.static(path.join(__dirname, '/../client/dist')));
+
+// CORS
+const cors = require('cors');
+
+app.use(cors());
+
 
 // import DB
 const db = require('../database');
