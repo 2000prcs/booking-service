@@ -57,7 +57,7 @@ class Booking extends React.Component {
     window.onscroll = () => {
       if (window.scrollY >= 1350) {
         document.getElementById('container').style.position = 'absolute';
-        document.getElementById('container').style.top = '1430px';
+        document.getElementById('container').style.top = '1400px';
       } else if (window.scrollY >= 440) {
         document.getElementById('container').style.position = 'fixed';
         document.getElementById('container').style.top = '75px';
