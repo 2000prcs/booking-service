@@ -1,11 +1,10 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import $ from 'jquery';
 import Stars from './Stars.jsx';
 import Form from './Form.jsx';
 import Finding from './Finding.jsx';
 import { Container } from 'semantic-ui-react';
 import styles from '../styles.css';
-
 
 const axios = require('axios');
 
@@ -17,17 +16,6 @@ class Booking extends React.Component {
       room: {
         room_id: this.props.room,
       },
-      // room: {
-      //   room_id: 5,
-      //   booked_dates: [],
-      //   guest_number: 186,
-      //   host_name: 'Rebecca',
-      //   review_count: 93,
-      //   review_grade: 5,
-      //   room_name: '944 Market St.',
-      //   room_rate: 93,
-      //   world_name: 'Hack Reactor',
-      // },
     };
   }
 
@@ -54,18 +42,20 @@ class Booking extends React.Component {
 
   render() {
     // Stops booking module before the image module
+    const height = $(document).height();
     window.onscroll = () => {
-      if (window.scrollY >= 1350) {
+      if ($(window).scrollTop() >= 1130) {
         document.getElementById('container').style.position = 'absolute';
-        document.getElementById('container').style.top = '1400px';
-      } else if (window.scrollY >= 440) {
+        document.getElementById('container').style.top = `${(height - 1170) + 405}px`;
+      } else if ($(window).scrollTop() >= 440) {
         document.getElementById('container').style.position = 'fixed';
         document.getElementById('container').style.top = '75px';
-      } else if (window.scrollY < 440) {
+      } else if ($(window).scrollTop() < 440) {
         document.getElementById('container').style.position = 'absolute';
         document.getElementById('container').style.top = '78%';
-      } 
+      }
     };
+
     return (
 
       <div id="container" className={styles.container}>
