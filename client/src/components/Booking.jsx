@@ -53,9 +53,19 @@ class Booking extends React.Component {
 
 
   render() {
+    // Stops booking module before the image module
+    window.onscroll = () => {
+      if (window.scrollY >= 440) {
+        document.getElementById('container').style.position = 'fixed';
+        document.getElementById('container').style.top = '75px';
+      } else if (window.scrollY < 440) {
+        document.getElementById('container').style.position = 'absolute';
+        document.getElementById('container').style.top = '75%';
+      }
+    };
     return (
 
-      <div className={styles.container}>
+      <div id="container" className={styles.container}>
         <div className={styles.component}>
           <span>
             <span className={styles.font}>${this.state.room.room_rate}</span>
