@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "node server/index.js",
-    "react-dev": "webpack -d --watch",
+    "react-dev": "webpack -p -d --watch",
     "server-dev": "nodemon --inspect server/index.js",
     "test": "jest -e --forceExit --coverage --verbose --updateSnapshot"
   },

@@ -46,13 +46,13 @@ class Booking extends React.Component {
     window.onscroll = () => {
       if ($(window).scrollTop() >= (height - (400 + 405))) {
         document.getElementById('container').style.position = 'absolute';
-        document.getElementById('container').style.top = `${height - 400 - 405 + 10}px`;
+        document.getElementById('container').style.top = `${(height - 400 - 405) + 10}px`;
       } else if ($(window).scrollTop() >= 440) {
         document.getElementById('container').style.position = 'fixed';
         document.getElementById('container').style.top = '75px';
       } else if ($(window).scrollTop() < 440) {
         document.getElementById('container').style.position = 'absolute';
-        document.getElementById('container').style.top = '78%';
+        document.getElementById('container').style.top = `${height - (height - 500 - 30)}px`;
       }
     };
 
