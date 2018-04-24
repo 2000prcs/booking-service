@@ -55,7 +55,6 @@ class Booking extends React.Component {
   render() {
     // Stops booking module before the image module
     window.onscroll = () => {
-      console.log(window.scrollY);
       if (window.scrollY >= 1350) {
         document.getElementById('container').style.position = 'absolute';
         document.getElementById('container').style.top = '1430px';
