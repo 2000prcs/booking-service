@@ -16,6 +16,7 @@ module.exports = (grunt) => {
         accessKeyId: AWSAccessKeyId,
         secretAccessKey: AWSSecretKey,
         bucket: 'fantasybnb-mo',
+        region: 'us-west-1'
       },
       build: {
         cwd: './client/dist',
