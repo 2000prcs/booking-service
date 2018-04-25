@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 
 // import db credentials
-const config = require('../config.js');
+const config = require('../config/mlabConfig.js');
 
 mongoose.connect(`mongodb://${config.DB_ID}:${config.DB_PASSWORD}@ds141889.mlab.com:41889/booking`);
 
