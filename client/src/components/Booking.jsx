@@ -42,19 +42,33 @@ class Booking extends React.Component {
 
   render() {
     // Stops booking module before the image module
-    const height = $(document).height();
-    window.onscroll = () => {
-      if ($(window).scrollTop() >= (height - (400 + 405))) {
-        document.getElementById('container').style.position = 'absolute';
-        document.getElementById('container').style.top = `${(height - 400 - 405) + 10}px`;
-      } else if ($(window).scrollTop() >= 440) {
-        document.getElementById('container').style.position = 'fixed';
-        document.getElementById('container').style.top = '75px';
-      } else if ($(window).scrollTop() < 440) {
-        document.getElementById('container').style.position = 'absolute';
-        document.getElementById('container').style.top = `${height - (height - 500 - 30)}px`;
-      }
-    };
+
+    $(document).ready(function() {
+      let height = $(document).height();
+      let images = $('#images').height();
+      let listings = $('#listings').height();
+      let reviews = $('#reviews').height();
+      let booking = $('#container').height();
+      // console.log('height', height);
+      // console.log('images', images);
+      // console.log('booking', booking);
+      // console.log('reviews', reviews);
+      // console.log('listings', listings);
+      window.onscroll = () => {
+        //console.log(window.scrollY);
+      if ($(window).scrollTop() >= (height - images - booking)) {
+          document.getElementById('container').style.position = 'absolute';
+          document.getElementById('container').style.top = `${height -  listings - booking - 30}px`;
+        } else if ($(window).scrollTop() >= 440) {
+          document.getElementById('container').style.position = 'fixed';
+          document.getElementById('container').style.top = '75px';
+        } else if ($(window).scrollTop() < 440) {
+          document.getElementById('container').style.position = 'absolute';
+          document.getElementById('container').style.top = `${height - (height - images - 30)}px`;
+        }
+    }
+      
+  });
 
     return (
 

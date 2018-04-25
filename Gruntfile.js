@@ -10,6 +10,7 @@ module.exports = (grunt) => {
       prod: webpackConfig,
       dev: Object.assign({ watch: false }, webpackConfig),
     },
+    //aws: grunt.file.readJSON("aws-credentials.json"),
     s3: {
       options: {
         accessKeyId: AWSAccessKeyId,
@@ -17,7 +18,7 @@ module.exports = (grunt) => {
         bucket: 'fantasybnb-mo',
       },
       build: {
-        cwd: '/client/dist',
+        cwd: './client/dist',
         src: '**',
       },
     },
@@ -27,6 +28,6 @@ module.exports = (grunt) => {
   grunt.loadNpmTasks('grunt-webpack');
   grunt.loadNpmTasks('grunt-aws');
 
-  // Register tasks ('default' is the default
+  // Register tasks ('default' is the default)
   grunt.registerTask('default', ['webpack', 's3']);
 };
