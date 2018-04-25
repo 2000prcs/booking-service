@@ -55,7 +55,7 @@ class Booking extends React.Component {
       // console.log('reviews', reviews);
       // console.log('listings', listings);
       window.onscroll = () => {
-        //console.log(window.scrollY);
+        // console.log('scrolling', window.scrollY);
       if ($(window).scrollTop() >= (height - images - booking)) {
           document.getElementById('container').style.position = 'absolute';
           document.getElementById('container').style.top = `${height -  listings - booking - 30}px`;
@@ -64,7 +64,7 @@ class Booking extends React.Component {
           document.getElementById('container').style.top = '75px';
         } else if ($(window).scrollTop() < 440) {
           document.getElementById('container').style.position = 'absolute';
-          document.getElementById('container').style.top = `${height - (height - images - 30)}px`;
+          document.getElementById('container').style.top = `${530}px`;
         }
     }
       
