@@ -34,7 +34,11 @@ class Booking extends React.Component {
   // Fetch this page's room data
   getRoomData() {
     const url = (process.env.NODE_ENV === 'production') ? 'http://ec2-54-172-248-16.compute-1.amazonaws.com': 'http://localhost:7777'
-
+    
+    if (process.env.NODE_ENV !== 'production') {
+       console.log('Looks like we are in development mode!');
+    }
+    
     // change API url to ec2 in the future
     axios.get(`${url}/booking/${this.state.room.room_id}`)
       .then((items) => {

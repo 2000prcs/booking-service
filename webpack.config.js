@@ -9,7 +9,6 @@ module.exports = {
     filename: 'bundle.min.js',
     path: DIST_DIR,
   },
-  mode: 'production',
   module: {
     rules: [{
       test: /\.jsx?/,

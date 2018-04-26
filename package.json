@@ -10,7 +10,8 @@
   "scripts": {
     "start": "node server/index.js",
     "build": "grunt",
-    "react-dev": "webpack -p --watch",
+    "react-dev": "webpack -d --watch",
+    "react-prod": "webpack -p",
     "server-dev": "nodemon --inspect server/index.js",
     "test": "jest -e --forceExit --coverage --verbose --updateSnapshot"
   },
@@ -33,7 +34,9 @@
     "react-dates": "^16.6.1",
     "react-dom": "^16.3.2",
     "react-star-ratings": "^2.2.0",
+    "redis": "^2.8.0",
     "request": "^2.85.0",
+    "response-time": "^2.3.2",
     "semantic-ui-react": "^0.79.1",
     "sinon": "^4.5.0",
     "style-loader": "^0.20.3",

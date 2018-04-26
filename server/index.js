@@ -1,37 +1,61 @@
 // connect express
 const express = require('express');
-
 const app = express();
 // CORS
 const cors = require('cors');
-
 app.use(cors());
 
 const path = require('path');
+const port = process.env.PORT || 7777;
+const responseTime = require('response-time');
+const redis = require('redis');
 
-const port = 7777;
+// create a new redis client and connect to the local redis instance
+const client = redis.createClient();
+
+// if an error occurs, print it to the console
+client.on('error', (err) => {
+  console.log("Error " + err);
+});
+
+// set up the response-time middleware
+app.use(responseTime());
 
 const bodyParser = require('body-parser');
-
 app.use(bodyParser.json());
 
-
 // serve client files
-app.use(express.static(path.join(__dirname, '/../client/dist')));
+app.use('/rooms/:roomId', express.static(path.join(__dirname, '/../client/dist')));
 
 // import DB
 const db = require('../database');
 
 // GET request
 app.get('/booking/:room_id', (req, res) => {
-  db.findOne(req.params.room_id, (error, data) => {
-    if (error) {
-      res.sendStatus(404);
-      res.send(error);
+
+  // get the room id parameter in the URL
+  let id = req.params.room_id;
+
+  // use the redis client to get room info from redis cache
+  client.get(id, (error, result) => {
+    if(result){
+    // the result exists in cache - return it to our user immediately
+    res.send(result); 
     } else {
-      res.send(data);
+      // if there's no cached room data, get it from db
+      db.findOne(req.params.room_id, (error, data) => {
+        if (error) {
+          res.sendStatus(404);
+          res.send(error);
+        } else {
+          // store the key-value pair (id: data) in cache with an expiry of 1 minute (60s)
+          client.setex(id, 60, data);
+          res.send(data);
+        }
+      });
     }
   });
+
 });
 
 
