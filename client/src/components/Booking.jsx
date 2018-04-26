@@ -32,6 +32,7 @@ class Booking extends React.Component {
 
   // Fetch this page's room data
   getRoomData() {
+    // change API url to ec2 in the future
     axios.get(`http://localhost:7777/booking/${this.state.room.room_id}`)
       .then((items) => {
         this.setState({ room: items.data });
