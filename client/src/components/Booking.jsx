@@ -9,6 +9,7 @@ import styles from '../styles.css';
 const axios = require('axios');
 
 
+
 class Booking extends React.Component {
   constructor(props) {
     super(props);
@@ -32,8 +33,10 @@ class Booking extends React.Component {
 
   // Fetch this page's room data
   getRoomData() {
+    const url = (process.env.NODE_ENV === 'production') ? 'http://ec2-54-172-248-16.compute-1.amazonaws.com': 'http://localhost:7777'
+
     // change API url to ec2 in the future
-    axios.get(`http://localhost:7777/booking/${this.state.room.room_id}`)
+    axios.get(`${url}/booking/${this.state.room.room_id}`)
       .then((items) => {
         this.setState({ room: items.data });
       })
