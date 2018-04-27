@@ -11,7 +11,7 @@ const responseTime = require('response-time');
 const redis = require('redis');
 
 // create a new redis client and connect to the local redis instance
-const client = redis.createClient();
+const client = redis.createClient('6379', '172.17.0.2');
 
 // if an error occurs, print it to the console
 client.on('error', (err) => {
@@ -40,7 +40,7 @@ app.get('/booking/:room_id', (req, res) => {
   client.get(id, (error, result) => {
     if(result){
     // the result exists in cache - return it to our user immediately
-    res.send(result); 
+    res.send(JSON.parse(result)); 
     } else {
       // if there's no cached room data, get it from db
       db.findOne(req.params.room_id, (error, data) => {
@@ -49,7 +49,7 @@ app.get('/booking/:room_id', (req, res) => {
           res.send(error);
         } else {
           // store the key-value pair (id: data) in cache with an expiry of 1 minute (60s)
-          client.setex(id, 60, data);
+          client.setex(id, 60, JSON.stringify(data));
           res.send(data);
         }
       });

@@ -1,3 +1,11 @@
+/* html {
+  overflow: -moz-scrollbars-vertical; 
+  overflow-y: scroll;
+}
+body {
+  min-height: 150%;
+} */
+
 .container {
   right: 2%;
   position: fixed;

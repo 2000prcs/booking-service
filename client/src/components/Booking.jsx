@@ -38,7 +38,7 @@ class Booking extends React.Component {
     if (process.env.NODE_ENV !== 'production') {
        console.log('Looks like we are in development mode!');
     }
-    
+
     // change API url to ec2 in the future
     axios.get(`${url}/booking/${this.state.room.room_id}`)
       .then((items) => {
