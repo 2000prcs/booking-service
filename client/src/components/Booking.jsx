@@ -33,13 +33,13 @@ class Booking extends React.Component {
 
   // Fetch this page's room data
   getRoomData() {
-    const url = (process.env.NODE_ENV === 'production') ? 'http://ec2-54-172-248-16.compute-1.amazonaws.com': 'http://localhost:7777'
-    
+    // webpack -p => 'production' & webpack -d => 'development' env swtich
+    const url = (process.env.NODE_ENV === 'production') ? 'http://ec2-54-172-248-16.compute-1.amazonaws.com' : 'http://localhost:7777'; 
+  
     if (process.env.NODE_ENV !== 'production') {
        console.log('Looks like we are in development mode!');
     }
 
-    // change API url to ec2 in the future
     axios.get(`${url}/booking/${this.state.room.room_id}`)
       .then((items) => {
         this.setState({ room: items.data });
@@ -49,7 +49,6 @@ class Booking extends React.Component {
 
 
   render() {
-    // Stops booking module before the image module
 
     $(document).ready(function() {
       let height = $(document).height();
@@ -64,12 +63,16 @@ class Booking extends React.Component {
       // console.log('listings', listings);
       window.onscroll = () => {
         // console.log('scrolling', window.scrollY);
-      if ($(window).scrollTop() >= (height - images - booking)) {
+        
+        // Stops booking module before the listings module at the bottom
+        if ($(window).scrollTop() >= (height - images - booking)) {
           document.getElementById('container').style.position = 'absolute';
           document.getElementById('container').style.top = `${height -  listings - booking - 30}px`;
+        // fix module's position to scroll bar while scrolling
         } else if ($(window).scrollTop() >= 440) {
           document.getElementById('container').style.position = 'fixed';
           document.getElementById('container').style.top = '75px';
+          // Stops booking module before the image module at the top 
         } else if ($(window).scrollTop() < 440) {
           document.getElementById('container').style.position = 'absolute';
           document.getElementById('container').style.top = `${530}px`;

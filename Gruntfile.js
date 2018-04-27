@@ -10,7 +10,6 @@ module.exports = (grunt) => {
       prod: webpackConfig,
       dev: Object.assign({ watch: false }, webpackConfig),
     },
-    //aws: grunt.file.readJSON("aws-credentials.json"),
     s3: {
       options: {
         accessKeyId: AWSAccessKeyId,

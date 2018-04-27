@@ -13,6 +13,7 @@
     "react-dev": "webpack -d --watch",
     "react-prod": "webpack -p",
     "server-dev": "nodemon --inspect server/index.js",
+    "redis": "redis-server",
     "test": "jest -e --forceExit --coverage --verbose --updateSnapshot"
   },
   "dependencies": {
@@ -56,8 +57,6 @@
     "eslint-plugin-react": "^7.7.0",
     "grunt": "^1.0.2",
     "grunt-aws": "^0.6.2",
-    "grunt-browserify": "^5.3.0",
-    "grunt-contrib-watch": "^1.0.1",
     "grunt-webpack": "^3.1.1",
     "jest": "^22.4.3",
     "uglifyjs-webpack-plugin": "^1.2.5",

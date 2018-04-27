@@ -11,7 +11,10 @@ const responseTime = require('response-time');
 const redis = require('redis');
 
 // create a new redis client and connect to the local redis instance
-const client = redis.createClient('6379', '172.17.0.2');
+// For docker 
+//const client = redis.createClient('6379', '172.17.0.2');
+// For local
+const client = redis.createClient();
 
 // if an error occurs, print it to the console
 client.on('error', (err) => {
@@ -35,7 +38,6 @@ app.get('/booking/:room_id', (req, res) => {
 
   // get the room id parameter in the URL
   let id = req.params.room_id;
-
   // use the redis client to get room info from redis cache
   client.get(id, (error, result) => {
     if(result){
