@@ -8,20 +8,21 @@ import styles from '../styles.css';
 
 const axios = require('axios');
 
-
-
 class Booking extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      scrolled: false,
       room: {
         room_id: this.props.room,
       },
     };
+    this.handleScroll = this.handleScroll.bind(this);
   }
 
   componentDidMount() {
     this.getRoomData();
+    window.addEventListener('scroll', this.handleScroll);
   }
 
   // fetch new room id from the server
@@ -47,34 +48,34 @@ class Booking extends React.Component {
       .catch(err => console.error(err));
   }
 
+  handleScroll() {
+    let height = $(document).height();
+    let images = $('#images').height();
+    let listings = $('#listings').height();
+    let reviews = $('#reviews').height();
+    let booking = $('#container').height();
+    // Stops booking module before the listings module at the bottom
+    if ($(window).scrollTop() >= (height - 100)) {
+      document.getElementById('container').style.position = 'absolute';
+      document.getElementById('container').style.top = `${height - listings + booking + 30}px`;
+      // fix module's position to scroll bar while scrolling
+    } else if ($(window).scrollTop() >= 440) {
+      document.getElementById('container').style.position = 'fixed';
+      document.getElementById('container').style.top = '75px';
+      this.setState({ scrolled: true });
+      // Stops booking module before the image module at the top 
+    } else if ($(window).scrollTop() < 440) {
+      document.getElementById('container').style.position = 'absolute';
+      document.getElementById('container').style.top = `${images + 30}px`;
+      this.setState({ scrolled: false });
+    }
+
+  }
 
   render() {
 
-    $(document).ready(function() {
-      let height = $(document).height();
-      let images = $('#images').height();
-      let listings = $('#listings').height();
-      let reviews = $('#reviews').height();
-      let booking = $('#container').height();
-      window.onscroll = () => {        
-        // Stops booking module before the listings module at the bottom
-        if ($(window).scrollTop() >= (height - 100)) {
-          document.getElementById('container').style.position = 'absolute';
-          document.getElementById('container').style.top = `${height -  listings + booking}px`;
-        // fix module's position to scroll bar while scrolling
-        } else if ($(window).scrollTop() >= 440) {
-          document.getElementById('container').style.position = 'fixed';
-          document.getElementById('container').style.top = '75px';
-          // Stops booking module before the image module at the top 
-        } else if ($(window).scrollTop() < 440) {
-          document.getElementById('container').style.position = 'absolute';
-          document.getElementById('container').style.top = `${images + 30}px`;
-        }
-    }     
-  });
-
     return (
-      <div id="container" className={styles.container}>
+      <div id="container" onScroll={this.handleScroll} className={styles.container}>
         <div className={styles.component}>       
             { !this.state.room.room_rate ? 
               <span className={styles.dotContainer}>
@@ -97,8 +98,7 @@ class Booking extends React.Component {
         <Form room={this.state.room} />
         <div className={styles.component}>
           <span className={styles.info}>You won't be charged yet</span>
-          <div className={styles.border} />
-          <Finding room={this.state.room} />
+          <Finding scrolled={this.state.scrolled} room={this.state.room} />
         </div>
       </div>
 
