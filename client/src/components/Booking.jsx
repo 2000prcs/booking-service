@@ -56,19 +56,11 @@ class Booking extends React.Component {
       let listings = $('#listings').height();
       let reviews = $('#reviews').height();
       let booking = $('#container').height();
-      console.log('height', height);
-      console.log('images', images);
-      console.log('booking', booking);
-      console.log('reviews', reviews);
-      console.log('listings', listings);
-      window.onscroll = () => {
-        console.log('scrolling', window.scrollY);
-        
+      window.onscroll = () => {        
         // Stops booking module before the listings module at the bottom
         if ($(window).scrollTop() >= (height - 100)) {
           document.getElementById('container').style.position = 'absolute';
           document.getElementById('container').style.top = `${height -  listings + booking}px`;
-          console.log('top', height -  listings - booking - 30);
         // fix module's position to scroll bar while scrolling
         } else if ($(window).scrollTop() >= 440) {
           document.getElementById('container').style.position = 'fixed';
