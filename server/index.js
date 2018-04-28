@@ -28,7 +28,7 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
 // serve client files
-app.use('/rooms/:roomId', express.static(path.join(__dirname, '/../client/dist')));
+app.use(express.static(path.join(__dirname, '/../client/dist')));
 
 // import DB
 const db = require('../database');

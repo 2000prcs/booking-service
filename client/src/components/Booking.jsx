@@ -56,18 +56,19 @@ class Booking extends React.Component {
       let listings = $('#listings').height();
       let reviews = $('#reviews').height();
       let booking = $('#container').height();
-      // console.log('height', height);
-      // console.log('images', images);
-      // console.log('booking', booking);
-      // console.log('reviews', reviews);
-      // console.log('listings', listings);
+      console.log('height', height);
+      console.log('images', images);
+      console.log('booking', booking);
+      console.log('reviews', reviews);
+      console.log('listings', listings);
       window.onscroll = () => {
-        // console.log('scrolling', window.scrollY);
+        console.log('scrolling', window.scrollY);
         
         // Stops booking module before the listings module at the bottom
-        if ($(window).scrollTop() >= (height - images - booking)) {
+        if ($(window).scrollTop() >= (height - 100)) {
           document.getElementById('container').style.position = 'absolute';
-          document.getElementById('container').style.top = `${height -  listings - booking - 30}px`;
+          document.getElementById('container').style.top = `${height -  listings + booking}px`;
+          console.log('top', height -  listings - booking - 30);
         // fix module's position to scroll bar while scrolling
         } else if ($(window).scrollTop() >= 440) {
           document.getElementById('container').style.position = 'fixed';
@@ -75,20 +76,27 @@ class Booking extends React.Component {
           // Stops booking module before the image module at the top 
         } else if ($(window).scrollTop() < 440) {
           document.getElementById('container').style.position = 'absolute';
-          document.getElementById('container').style.top = `${530}px`;
+          document.getElementById('container').style.top = `${images + 30}px`;
         }
-    }
-      
+    }     
   });
 
     return (
-
       <div id="container" className={styles.container}>
-        <div className={styles.component}>
-          <span>
-            <span className={styles.font}>${this.state.room.room_rate}</span>
-            <span> per night</span>
-          </span>
+        <div className={styles.component}>       
+            { !this.state.room.room_rate ? 
+              <span className={styles.dotContainer}>
+                <span className={styles.dots}>
+                  <span className={styles.dot}></span>
+                  <span className={styles.dot}></span>
+                  <span className={styles.dot}></span>
+                </span>
+              </span>
+            : <div>
+                <span className={styles.font}>${this.state.room.room_rate}</span> 
+                <span> per night</span>
+              </div>
+            }
         </div>
         <div className={styles.component}>
           <Stars room={this.state.room} />

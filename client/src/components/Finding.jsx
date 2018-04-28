@@ -8,8 +8,9 @@ const Finding = ({room}) => (
       <span className={styles.find}>This is a rare find.</span>
     </div>
     <div>
-      <span className={styles.finding}>{room.host_name}'s place is usually booked. </span>
-      <span className={styles.icon}><i className="fas fa-gem" /></span>
+      <div className={styles.finding}>{room.host_name}'s place is usually booked.
+        <img className={styles.findingIcon} src="http://localhost:7777/diamond.svg" />
+      </div>
     </div>
   </div>
 

@@ -6,14 +6,16 @@ body {
   min-height: 150%;
 } */
 
+
 .container {
-  right: 2%;
+  right: 9% !important;
   position: fixed;
   top: 530px;
   margin-left: 45px;
-  width: 376px;
+  width: 376px !important;
+  left: initial !important;
   z-index: 3;
-  font-family: 'Cabin', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 12px;
   font-weight: 300;
   letter-spacing: 0.2px;
@@ -47,10 +49,53 @@ body {
 }
 
 
+/* loading dots  */
+@keyframes dots-pulse {
+  0% {
+    opacity: 0.1; }
+  15% {
+    opacity: 1; }
+  100% {
+    opacity: 0.1; } }
+
+
+.dots .dot {
+  border-radius: 100%;
+  display: inline-block;
+  margin-right: .5em;
+  background-color: #008489;
+  width: 0.5em;
+  height: 0.5em;
+  animation-name: dots-pulse;
+  animation-duration: 0.8s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite; 
+}
+
+.dotContainer {
+  text-align: center;
+}
+
+  .dots .dot:last-child {
+    margin-right: 0; }
+
+  .dot:first-of-type {
+    animation-delay: -0.5s;
+  }
+  .dot:nth-of-type(2) {
+    animation-delay: -0.3s;
+  }
+  .dot:nth-of-type(3) {
+    animation-delay: -0.1s;
+  }
+
+
 .dates {
   margin-left: 10px;
 }
 
+
+/* guest drop down menu  */
 .guestMenu {
     font-size: 17px;
     background: #ffffff;
@@ -64,8 +109,8 @@ body {
     margin-bottom: 10px;
 }
 
-
 .menu {
+  height: 260px;
   background: #ffffff;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.07);
   border-radius: 3px;
@@ -87,10 +132,106 @@ body {
   border-top: 2px solid #008489;
 }
 
-.guestType {
-  margin-top: 10px;
-}
+  #arrow, .close, .price{
+    float: right;
+  }
 
+  .findingIcon {
+    width: 30px;
+  }
+
+  .guestType {    
+    margin-top: 16px;
+    margin-bottom: 16px;
+    display: table;
+    width: 100%;
+    }
+
+  .guest {
+    display: table-cell;
+    width: 100%;
+    vertical-align: middle;
+  }
+
+  .guestNumber {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    font-weight: normal;
+    margin: 0px;
+    font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif;
+    font-size: 19px;
+    line-height: 24px;
+    letter-spacing: undefined;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-right: 12px;
+    color: #484848;
+  }
+  
+  .guestCaption {
+    margin-top: 20px; 
+    font-size: 15px;
+    line-height: 18px;
+    letter-spacing: 0.2px;
+    word-wrap: break-word;
+    font-weight: 300;
+  }
+
+  .close {
+    color: #008489;
+    cursor: pointer;
+    font-size: 19px;
+    font-weight: normal;
+    user-select: auto;
+  }
+
+
+  /* plus minus icons for guest drop down menu  */
+
+  .iconGroup {    
+    display: table;
+    width: 120px;
+    vertical-align: middle;
+  }
+
+  .icon {
+      display: inline-block;
+      cursor: pointer;
+      border-radius: 50%; 
+      text-align: center;
+      line-height: 1;
+      position: relative;
+      -ms-touch-action: manipulation;
+      touch-action: manipulation;
+      border-style: solid;
+      border-color: #008489;
+      background: transparent;
+      width: 32px;
+      height: 32px;
+      border-width: 1px;
+      fill: currentcolor;
+  }
+
+  .icon.plus {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: right;
+  }
+
+  .icon.minus {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: left;
+  }
+  
+  rect {
+    color: #008489;
+    font-size: 16px;
+  }
+
+
+/* booking button */
 
 .button {
   margin-top: 10px;
@@ -117,36 +258,11 @@ body {
   border-color: transparent;
 }
 
-#arrow {
-  float: right;
-}
-
-.icon {
-  float: right;
-}
-
-.guest {
-  float: right;
-}
-
-.guestCaption {
-  margin-top: 20px; 
-  font-size: 15px;
-  line-height: 18px;
-  letter-spacing: 0.2px;
-  word-wrap: break-word;
-  font-weight: 300;
-}
-
 
 .prices {
   margin-top: 5px;
   font-size: 15px;
   font-weight: normal;
-}
-
-.price {
-  float: right;
 }
 
 .strong {
@@ -157,8 +273,6 @@ body {
   text-align: center;
   display: block;
 }
-
-
 
 .find {
   font-weight: 800;
@@ -179,3 +293,5 @@ body {
   color: #484848;
   font-weight: 300;
 }
+
+

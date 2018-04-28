@@ -194,26 +194,54 @@ export default class Form extends React.Component {
                     }}
                   >
                     <div className={styles.guestType}>
-                      <span>Adults</span>
-                      <Icon id="adult-plus" className={styles.icon} name="plus circle" onClick={e => this.incrementGuest(e, 'adults')} />
-                      <span className={styles.guest}>{this.state.adults}</span>
-                      <Icon id="adult-minus" className={styles.icon} name="minus circle" onClick={e => this.decrementGuest(e, 'adults')} />
+                      <div className={styles.guest} style={{fontSize: 19, fontWeight: 'normal'}}>Adults</div>
+                      <div className={styles.iconGroup}>
+                        <svg id="adult-minus" className={`${styles.icon} ${styles.minus}`} onClick={e => this.decrementGuest(e, 'adults')}>
+                          <rect height="2" rx="1" width="12" x="9" y="14"></rect>
+                        </svg>
+                        <div className={styles.guestNumber}>{this.state.adults}</div>
+                        <svg id="adult-plus" className={`${styles.icon} ${styles.plus}`} onClick={e => this.incrementGuest(e, 'adults')}>
+                          <rect height="2" rx="1" width="12" x="9" y="14"></rect>
+                          <rect height="12" rx="1" width="2" x="14" y="9"></rect>
+                        </svg>
+                      </div>
                     </div>
                     <div className={styles.guestType}> 
-                      <span>Children  (Ages 2 - 12)</span>
-                      <Icon id="children-plus" className={styles.icon} name="plus circle" onClick={e => this.incrementGuest(e, 'children')} />
-                      <span className={styles.guest}>{this.state.children}</span>
-                      <Icon id="children-minus" className={styles.icon} name="minus circle" onClick={e => this.decrementGuest(e, 'children')} />
+                      <div className={styles.guest}>
+                        <div style={{fontSize: 19, fontWeight: 'normal'}}>Children</div>
+                        <div style={{fontSize: 15, fontWeight: 300}}>Ages 2 - 12</div>
+                      </div>
+                      <div className={styles.iconGroup}>
+                        <svg id="children-minus" className={`${styles.icon} ${styles.minus}`} onClick={e => this.decrementGuest(e, 'children')}>
+                          <rect height="2" rx="1" width="12" x="9" y="14"></rect>                  
+                        </svg>
+                        <div className={styles.guestNumber}>{this.state.children}</div>
+                        <svg id="children-plus" className={`${styles.icon} ${styles.plus}`} onClick={e => this.incrementGuest(e, 'children')}>
+                          <rect height="2" rx="1" width="12" x="9" y="14"></rect>                        
+                          <rect height="12" rx="1" width="2" x="14" y="9"></rect>                     
+                        </svg>
+                      </div>
                     </div>
                     <div id="infant" className={styles.guestType}>
-                      <span>Infants   (Under 2)</span>
-                      <Icon id="infant-plus" className={styles.icon} name="plus circle" onClick={e => this.incrementGuest(e, 'infants')} />
-                      <span className={styles.guest}>{this.state.infants}</span>
-                      <Icon id="infant-minus" className={styles.icon} name="minus circle" onClick={e => this.decrementGuest(e, 'infants')} />
+                      <div className={styles.guest}>
+                        <div style={{fontSize: 19, fontWeight: 'normal'}}>Infants</div>
+                        <div style={{fontSize: 15, fontWeight: 300}}>Under 2</div>
+                      </div>
+                      <div className={styles.iconGroup}>
+                        <svg id="infant-minus" className={`${styles.icon} ${styles.minus}`} onClick={e => this.decrementGuest(e, 'infants')}>
+                          <rect height="2" rx="1" width="12" x="9" y="14"></rect>                  
+                        </svg>
+                        <div className={styles.guestNumber}>{this.state.infants}</div>
+                        <svg id="infant-plus" className={`${styles.icon} ${styles.plus}`} onClick={e => this.incrementGuest(e, 'infants')} >
+                          <rect height="2" rx="1" width="12" x="9" y="14"></rect>                        
+                          <rect height="12" rx="1" width="2" x="14" y="9"></rect>                     
+                        </svg>
+                      </div>
                     </div>
                     <div className={styles.guestCaption}>
                       <span >{this.state.maximumGuests} guests maximum. Infants don't count toward the number of guests.</span>
                     </div>
+                    <button className={styles.close} onClick={()=> this.setState({showMenu: false})}>Close</button>
                   </div>
                 )
                 : (
