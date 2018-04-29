@@ -598,7 +598,7 @@ require.resolve('react-dates/lib/css/_datepicker.css');
   background: #fff;
   position: relative;
   display: inline-block;
-  width: 130px;
+  width: 139px;
   vertical-align: middle
 }
 .DateInput__small {

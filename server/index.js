@@ -12,7 +12,7 @@ const redis = require('redis');
 
 // create a new redis client and connect to the local redis instance
 // For docker 
-//const client = redis.createClient('6379', '172.17.0.2');
+// const client = redis.createClient('6379', '172.17.0.2');
 // For local
 const client = redis.createClient();
 
@@ -28,7 +28,7 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
 // serve client files
-app.use('/rooms/:roomId', express.static(path.join(__dirname, '/../client/dist')));
+app.use(express.static(path.join(__dirname, '/../client/dist')));
 
 // import DB
 const db = require('../database');
