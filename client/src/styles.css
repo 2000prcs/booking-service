@@ -90,10 +90,6 @@ body {
   }
 
 
-.dates {
-  margin-left: 10px;
-}
-
 
 /* guest drop down menu  */
 .guestMenu {
@@ -255,22 +251,6 @@ body {
 }
 
 
-.prices {
-  margin-top: 5px;
-  font-size: 15px;
-  font-weight: normal;
-}
-
-.strong {
-  font-weight: 800;
-}
-
-.info {
-  text-align: center;
-  display: block;
-}
-
-
 /* sliding menu for location  */
 
 .findingGroup {
@@ -305,3 +285,23 @@ body {
 }
 
 
+
+.dates {
+  margin-left: 10px;
+}
+
+
+.prices {
+  margin-top: 5px;
+  font-size: 15px;
+  font-weight: normal;
+}
+
+.strong {
+  font-weight: 800;
+}
+
+.info {
+  text-align: center;
+  display: block;
+}
