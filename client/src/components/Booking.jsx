@@ -35,7 +35,7 @@ class Booking extends React.Component {
   // Fetch this page's room data
   getRoomData() {
     // webpack -p => 'production' & webpack -d => 'development' env swtich
-    const url = (process.env.NODE_ENV === 'production') ? 'http://ec2-54-172-248-16.compute-1.amazonaws.com' : 'http://localhost:7777'; 
+    const url = (process.env.NODE_ENV === 'production') ? 'http://ec2-184-72-109-180.compute-1.amazonaws.com' : 'http://localhost:7777'; 
   
     if (process.env.NODE_ENV !== 'production') {
        console.log('Looks like we are in development mode!');
@@ -49,24 +49,31 @@ class Booking extends React.Component {
   }
 
   handleScroll() {
-    let height = $(document).height();
-    let images = $('#images').height();
-    let listings = $('#listings').height();
-    let reviews = $('#reviews').height();
-    let booking = $('#container').height();
+    let scrollHeight = $(document).height(),
+        scrollTop = $(window).scrollTop(),
+        offsetTop = $('#images').height(),
+        offsetBottom = $('#listings').height(),
+        positionTop = $('#container').offset().top,
+        booking = $('#container').height(),
+        scrollLimit = ($('#content').height() + offsetTop) - booking;
+
     // Stops booking module before the listings module at the bottom
-    if ($(window).scrollTop() >= (height - 100)) {
+    if (window.scrollY >= scrollLimit) {
+       // The sidebar has reached the bottom
       document.getElementById('container').style.position = 'absolute';
-      document.getElementById('container').style.top = `${height - listings + booking + 30}px`;
+      document.getElementById('container').style.bottom = `0px`;
+      $('#container').css('top', 'initial');
       // fix module's position to scroll bar while scrolling
-    } else if ($(window).scrollTop() >= 440) {
+    } else if (window.scrollY >= offsetTop) {
       document.getElementById('container').style.position = 'fixed';
       document.getElementById('container').style.top = '75px';
+      $('#container').css('bottom', 'initial');
       this.setState({ scrolled: true });
       // Stops booking module before the image module at the top 
-    } else if ($(window).scrollTop() < 440) {
+    } else if (window.scrollY < offsetTop) {
       document.getElementById('container').style.position = 'absolute';
-      document.getElementById('container').style.top = `${images + 30}px`;
+      document.getElementById('container').style.top = `0px`;
+      $('#container').css('bottom', 'initial');
       this.setState({ scrolled: false });
     }
 
@@ -96,7 +103,7 @@ class Booking extends React.Component {
         </div >
         <div className={styles.border} />
         <Form room={this.state.room} />
-        <div className={styles.component}>
+        <div id="finding" className={styles.component}>
           <span className={styles.info}>You won't be charged yet</span>
           <Finding scrolled={this.state.scrolled} room={this.state.room} />
         </div>

@@ -1,19 +1,9 @@
-/* html {
-  overflow: -moz-scrollbars-vertical; 
-  overflow-y: scroll;
-}
-body {
-  min-height: 150%;
-} */
-
-
 .container {
-  right: 15% !important;
-  position: fixed;
-  top: 530px;
+  right: 15%;
+  position: absolute;
+  top: 0;
   margin-left: 45px;
-  width: 376px !important;
-  left: initial !important;
+  width: 376px;
   z-index: 3;
   font-family: 'Roboto', sans-serif;
   font-size: 12px;
