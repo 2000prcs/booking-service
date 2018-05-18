@@ -10,8 +10,8 @@
 
 ## Table of Contents
 
-1. [Installation](##Installation)
-2. [Tests](##Runningthetests)
+1. [Installation](#installation)
+2. [Tests](#runningthetests)
 
 ## Demo
 👉 Watch it <a href="https://youtu.be/ICAVzENXSFA">here</a>.
