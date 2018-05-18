@@ -10,10 +10,10 @@
 
 ## Table of Contents
 
-1. [Installation](#Installation)
-2. [Tests](#Runningthetests)
+1. [Installation](##Installation)
+2. [Tests](##Runningthetests)
 
-# Demo
+## Demo
 👉 Watch it <a href="https://youtu.be/ICAVzENXSFA">here</a>.
 <br>
 
@@ -21,10 +21,9 @@
 
 ## Getting Started
 
-> Application Url: http://localhost:7777/rooms/:roomId
+Application Url: http://localhost:7777/rooms/:roomId
 <br>
-
-> roomId range is 0 to 100 (inclusive) 
+roomId range is 0 to 100 (inclusive) 
 
 ### Prerequisites
 
