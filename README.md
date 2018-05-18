@@ -30,7 +30,6 @@ roomId range is 0 to 100 (inclusive)
 An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
 - Node 6.13.0
-- Webpack 4.6.0
 
 ## Installation
 
