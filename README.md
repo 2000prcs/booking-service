@@ -11,7 +11,7 @@
 ## Table of Contents
 
 1. [Installation](#installation)
-2. [Running the Tests](#running)
+2. [Running the Tests](#running-the-tests)
 
 ## Demo
 👉 Watch it <a href="https://youtu.be/ICAVzENXSFA">here</a>.
