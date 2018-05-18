@@ -11,7 +11,7 @@
 ## Table of Contents
 
 1. [Installation](#installation)
-2. [Tests](#runningthetests)
+2. [Running the Tests](#running)
 
 ## Demo
 👉 Watch it <a href="https://youtu.be/ICAVzENXSFA">here</a>.
@@ -25,7 +25,7 @@ Application Url: http://localhost:7777/rooms/:roomId
 <br>
 roomId range is 0 to 100 (inclusive) 
 
-### Prerequisites
+## Prerequisites
 
 An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
@@ -55,7 +55,7 @@ npm run react-prod (for production)
 npm start
 ```
 
-## Running the tests
+## Running the Tests
 
 ```sh
 npm test
