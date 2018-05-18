@@ -10,9 +10,14 @@
 
 ## Table of Contents
 
-1. [Installation](#Usage)
-1. [Tests](#Running the tests)
-1. [Development](#development)
+1. [Installation](#Installation)
+2. [Tests](#Runningthetests)
+
+# Demo
+👉 Watch it <a href="https://youtu.be/ICAVzENXSFA">here</a>.
+<br>
+
+<img src="https://media.giphy.com/media/6CBargj7d5OLwJNeh1/giphy.gif">
 
 ## Getting Started
 
