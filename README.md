@@ -22,6 +22,8 @@
 ## Getting Started
 
 > Application Url: http://localhost:7777/rooms/:roomId
+<br>
+
 > roomId range is 0 to 100 (inclusive) 
 
 ### Prerequisites
