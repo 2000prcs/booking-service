@@ -1,39 +1,67 @@
-# Project Name
+# Project Title
 
-> Project description
+> Booking module that allows users to make a reservation for a room. User can select check-in & chek-out dates from a calendar and book the room.
 
 ## Related Projects
 
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
+  - https://github.com/fantasybnb/images-service
+  - https://github.com/fantasybnb/reviews-service
+  - https://github.com/fantasybnb/similar_listings-service
 
 ## Table of Contents
 
-1. [Usage](#Usage)
-1. [Requirements](#requirements)
+1. [Installation](#Usage)
+1. [Tests](#Running the tests)
 1. [Development](#development)
 
-## Usage
+## Getting Started
 
-> Some usage instructions
+> Application Url: http://localhost:7777/rooms/:roomId
+> roomId range is 0 to 100 (inclusive) 
 
-## Requirements
+### Prerequisites
 
 An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
 - Node 6.13.0
-- etc
+- Webpack 4.6.0
 
-## Development
-
-### Installing Dependencies
+## Installation
 
 From within the root directory:
 
+> Install project dependencies:
+
 ```sh
-npm install -g webpack
 npm install
 ```
 
+> Build a client bundle with webpack: 
+
+```sh
+npm run react-dev (for development) 
+npm run react-prod (for production)
+```
+
+> Start the app:
+
+```sh
+npm start
+```
+
+## Running the tests
+
+```sh
+npm test
+```
+
+## Built With
+
+* [React](https://reactjs.org/) - The web framework used
+* [NPM](https://www.npmjs.com/) - Dependency Management
+* [MongoDB](https://docs.mongodb.com/) - NoSQL Database
+
+
+## Style Guide
+
+Refer to the [AirBnb Style Guide](https://github.com/airbnb/javascript).

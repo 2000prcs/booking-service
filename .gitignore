@@ -1,5 +1,13 @@
+## NPM ##
 node_modules
+
+# Coverage directory used by testing
 coverage
-client/dist/bundle.js
+
+# Compiled bundles (http://nodejs.org/api/addons.html)
+client/dist/bundle.min.js
+
+# Config files
 config/awsConfig.json
+
 dump.rdb

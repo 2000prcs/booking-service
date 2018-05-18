@@ -1,9 +1,8 @@
 import React from 'react';
 import 'react-dates/initialize';
-import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
-import Price from './Price.jsx';
+import { DateRangePicker } from 'react-dates';
+import Price from './Price';
 import styles from '../styles.css';
-import { Icon } from 'semantic-ui-react';
 
 
 const Moment = require('moment');
@@ -97,9 +96,7 @@ export default class Form extends React.Component {
   // Increment & decrement guest numbers
   incrementGuest(e, guestType) {
     if ((this.state.maximumGuests - (this.state.adults + this.state.children)) >= 1) {
-      this.setState((prevState) => {
-        return { [guestType]: prevState[guestType] + 1 };
-      });
+      this.setState(prevState => ({ [guestType]: prevState[guestType] + 1 }));
     }
     this.setState({ showPrice: true }, this.setUserInfo);
   }
@@ -107,16 +104,10 @@ export default class Form extends React.Component {
   decrementGuest(e, guestType) {
     if (guestType === 'adults') {
       if (this.state[guestType] >= 2) {
-        this.setState((prevState) => {
-          return { [guestType]: prevState[guestType] - 1 };
-        });
+        this.setState(prevState => ({ [guestType]: prevState[guestType] - 1 }));
       }
-    } else {
-      if (this.state[guestType] >= 1) {
-        this.setState((prevState) => {
-          return { [guestType]: prevState[guestType] - 1 };
-        });
-      }
+    } else if (this.state[guestType] >= 1) {
+      this.setState(prevState => ({ [guestType]: prevState[guestType] - 1 }));
     }
     this.setState({ showPrice: true }, this.setUserInfo);
   }
@@ -158,7 +149,6 @@ export default class Form extends React.Component {
 
 
   render() {
-
     return (
       <div className={styles.component}>
         <div>
@@ -194,7 +184,7 @@ export default class Form extends React.Component {
                     }}
                   >
                     <div className={styles.guestType}>
-                      <div className={styles.guest} style={{fontSize: 19, fontWeight: 'normal'}}>Adults</div>
+                      <div className={styles.guest} style={{ fontSize: 19, fontWeight: 'normal' }}>Adults</div>
                       <div className={styles.iconGroup}>
                         <svg id="adult-minus" className={`${styles.icon} ${styles.minus}`} onClick={e => this.decrementGuest(e, 'adults')}>
                           <rect height="2" rx="1" width="12" x="9" y="14"></rect>
@@ -206,42 +196,42 @@ export default class Form extends React.Component {
                         </svg>
                       </div>
                     </div>
-                    <div className={styles.guestType}> 
+                    <div className={styles.guestType}>
                       <div className={styles.guest}>
-                        <div style={{fontSize: 19, fontWeight: 'normal'}}>Children</div>
-                        <div style={{fontSize: 15, fontWeight: 300}}>Ages 2 - 12</div>
+                        <div style={{ fontSize: 19, fontWeight: 'normal' }}>Children</div>
+                        <div style={{ fontSize: 15, fontWeight: 300 }}>Ages 2 - 12</div>
                       </div>
                       <div className={styles.iconGroup}>
                         <svg id="children-minus" className={`${styles.icon} ${styles.minus}`} onClick={e => this.decrementGuest(e, 'children')}>
-                          <rect height="2" rx="1" width="12" x="9" y="14"></rect>                  
+                          <rect height="2" rx="1" width="12" x="9" y="14"></rect>
                         </svg>
                         <div className={styles.guestNumber}>{this.state.children}</div>
                         <svg id="children-plus" className={`${styles.icon} ${styles.plus}`} onClick={e => this.incrementGuest(e, 'children')}>
-                          <rect height="2" rx="1" width="12" x="9" y="14"></rect>                        
-                          <rect height="12" rx="1" width="2" x="14" y="9"></rect>                     
+                          <rect height="2" rx="1" width="12" x="9" y="14"></rect>
+                          <rect height="12" rx="1" width="2" x="14" y="9"></rect>
                         </svg>
                       </div>
                     </div>
                     <div id="infant" className={styles.guestType}>
                       <div className={styles.guest}>
-                        <div style={{fontSize: 19, fontWeight: 'normal'}}>Infants</div>
-                        <div style={{fontSize: 15, fontWeight: 300}}>Under 2</div>
+                        <div style={{ fontSize: 19, fontWeight: 'normal' }}>Infants</div>
+                        <div style={{ fontSize: 15, fontWeight: 300 }}>Under 2</div>
                       </div>
                       <div className={styles.iconGroup}>
                         <svg id="infant-minus" className={`${styles.icon} ${styles.minus}`} onClick={e => this.decrementGuest(e, 'infants')}>
-                          <rect height="2" rx="1" width="12" x="9" y="14"></rect>                  
+                          <rect height="2" rx="1" width="12" x="9" y="14"></rect>
                         </svg>
                         <div className={styles.guestNumber}>{this.state.infants}</div>
                         <svg id="infant-plus" className={`${styles.icon} ${styles.plus}`} onClick={e => this.incrementGuest(e, 'infants')} >
-                          <rect height="2" rx="1" width="12" x="9" y="14"></rect>                        
-                          <rect height="12" rx="1" width="2" x="14" y="9"></rect>                     
+                          <rect height="2" rx="1" width="12" x="9" y="14"></rect>
+                          <rect height="12" rx="1" width="2" x="14" y="9"></rect>
                         </svg>
                       </div>
                     </div>
                     <div className={styles.guestCaption}>
                       <span >{this.state.maximumGuests} guests maximum. Infants don't count toward the number of guests.</span>
                     </div>
-                    <button className={styles.close} onClick={()=> this.setState({showMenu: false})}>Close</button>
+                    <button className={styles.close} onClick={() => this.setState({ showMenu: false })}>Close</button>
                   </div>
                 )
                 : (

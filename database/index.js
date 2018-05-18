@@ -43,8 +43,7 @@ const Room = mongoose.model('room', bookingSchema);
 
 // adding booking dates to DB (only booked_dates)
 const update = (data, callback) => {
-
-  let newBooking = {
+  const newBooking = {
     room_id: data.id,
     booked_dates: data.booked,
     // guest_number: data.guest_number,

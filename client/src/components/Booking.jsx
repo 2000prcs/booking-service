@@ -1,9 +1,8 @@
 import React from 'react';
 import $ from 'jquery';
-import Stars from './Stars.jsx';
-import Form from './Form.jsx';
-import Finding from './Finding.jsx';
-import { Container } from 'semantic-ui-react';
+import Stars from './Stars';
+import Form from './Form';
+import Finding from './Finding';
 import styles from '../styles.css';
 
 const axios = require('axios');
@@ -35,10 +34,10 @@ class Booking extends React.Component {
   // Fetch this page's room data
   getRoomData() {
     // webpack -p => 'production' & webpack -d => 'development' env swtich
-    const url = (process.env.NODE_ENV === 'production') ? 'http://ec2-184-72-109-180.compute-1.amazonaws.com' : 'http://localhost:7777'; 
-  
+    const url = (process.env.NODE_ENV === 'production') ? 'http://ec2-184-72-109-180.compute-1.amazonaws.com' : 'http://localhost:7777';
+
     if (process.env.NODE_ENV !== 'production') {
-       console.log('Looks like we are in development mode!');
+      console.log('Looks like we are in development mode!');
     }
 
     axios.get(`${url}/booking/${this.state.room.room_id}`)
@@ -50,18 +49,18 @@ class Booking extends React.Component {
 
   handleScroll() {
     let scrollHeight = $(document).height(),
-        scrollTop = $(window).scrollTop(),
-        offsetTop = $('#images').height(),
-        offsetBottom = $('#listings').height(),
-        positionTop = $('#container').offset().top,
-        booking = $('#container').height(),
-        scrollLimit = ($('#content').height() + offsetTop) - booking;
+      scrollTop = $(window).scrollTop(),
+      offsetTop = $('#images').height(),
+      offsetBottom = $('#listings').height(),
+      positionTop = $('#container').offset().top,
+      booking = $('#container').height(),
+      scrollLimit = ($('#content').height() + offsetTop) - booking;
 
     // Stops booking module before the listings module at the bottom
     if (window.scrollY >= scrollLimit) {
-       // The sidebar has reached the bottom
+      // The sidebar has reached the bottom
       document.getElementById('container').style.position = 'absolute';
-      document.getElementById('container').style.bottom = `0px`;
+      document.getElementById('container').style.bottom = '0px';
       $('#container').css('top', 'initial');
       // fix module's position to scroll bar while scrolling
     } else if (window.scrollY >= offsetTop) {
@@ -69,22 +68,20 @@ class Booking extends React.Component {
       document.getElementById('container').style.top = '75px';
       $('#container').css('bottom', 'initial');
       this.setState({ scrolled: true });
-      // Stops booking module before the image module at the top 
+      // Stops booking module before the image module at the top
     } else if (window.scrollY < offsetTop) {
       document.getElementById('container').style.position = 'absolute';
-      document.getElementById('container').style.top = `0px`;
+      document.getElementById('container').style.top = '0px';
       $('#container').css('bottom', 'initial');
       this.setState({ scrolled: false });
     }
-
   }
 
   render() {
-
     return (
       <div id="container" onScroll={this.handleScroll} className={styles.container}>
-        <div className={styles.component}>       
-            { !this.state.room.room_rate ? 
+        <div className={styles.component}>
+            { !this.state.room.room_rate ?
               <span className={styles.dotContainer}>
                 <span className={styles.dots}>
                   <span className={styles.dot}></span>
@@ -93,7 +90,7 @@ class Booking extends React.Component {
                 </span>
               </span>
             : <div>
-                <span className={styles.font}>${this.state.room.room_rate}</span> 
+                <span className={styles.font}>${this.state.room.room_rate}</span>
                 <span> per night</span>
               </div>
             }
