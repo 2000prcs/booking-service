@@ -1,4 +1,4 @@
-# FantasyBnB: Booking Module
+# SkyLodge: Booking Module
 
 > This module allows users to make a reservation for a room. User can select check-in & chek-out dates from a calendar and book the room.
 
