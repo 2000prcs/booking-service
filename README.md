@@ -14,8 +14,9 @@
 2. [Running the Tests](#running-the-tests)
 
 ## Demo
-👉 Watch it <a href="https://youtu.be/ICAVzENXSFA">here</a>.
+### 👉 Watch [Demo Video](https://youtu.be/ICAVzENXSFA)
 <br>
+
 
 <img src="https://media.giphy.com/media/6CBargj7d5OLwJNeh1/giphy.gif">
 
