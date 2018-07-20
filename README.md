@@ -2,12 +2,6 @@
 
 > This module allows users to make a reservation for a room. User can select check-in & chek-out dates from a calendar and book the room.
 
-## Related Projects
-
-  - https://github.com/fantasybnb/images-service
-  - https://github.com/fantasybnb/reviews-service
-  - https://github.com/fantasybnb/similar_listings-service
-
 ## Table of Contents
 
 1. [Installation](#installation)
@@ -36,20 +30,20 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 
 From within the root directory:
 
-> Install project dependencies:
+1. Install project dependencies:
 
 ```sh
 npm install
 ```
 
-> Build a client bundle with webpack: 
+2. Build a client bundle with webpack: 
 
 ```sh
 npm run react-dev (for development) 
 npm run react-prod (for production)
 ```
 
-> Start the app:
+3. Start the app:
 
 ```sh
 npm start
